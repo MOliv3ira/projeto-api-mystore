@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230226 20:42:03.757" rpa="false" schemaversion="3">
+<suite id="s1" name="Api Testing" source="C:\CursosUdemy\RobotFramework\ApiMystore\tests\api_testing.robot">
+<test id="s1-t1" name="Cenário 01: Cadastrar um novo produto com sucesso na MyStore" line="7">
+<kw name="Cadastrar novo produto" library="api_testing">
+<arg>status_code_desejado=201</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=Vitamina D</arg>
+<arg>price=10</arg>
+<arg>manufacturer=Teste</arg>
+<arg>category=supplements</arg>
+<arg>description=Teste Produto</arg>
+<arg>tags=Teste tag</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:03.864" level="INFO">${body} = {'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:03.864" endtime="20230226 20:42:03.864"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:03.864" level="INFO">{'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:03.864" endtime="20230226 20:42:03.864"/>
+</kw>
+<kw name="Criar Sessão na MyStore" library="api_testing">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<arg>X-RapidAPI-Key=3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426</arg>
+<arg>X-RapidAPI-Host=my-store2.p.rapidapi.com</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:03.865" level="INFO">${headers} = {'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'}</msg>
+<status status="PASS" starttime="20230226 20:42:03.864" endtime="20230226 20:42:03.865"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=MyStore</arg>
+<arg>url=https://my-store2.p.rapidapi.com/catalog</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230226 20:42:03.865" level="INFO">Creating Session using : alias=MyStore, url=https://my-store2.p.rapidapi.com/catalog, headers={'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230226 20:42:03.865" endtime="20230226 20:42:03.865"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:03.864" endtime="20230226 20:42:03.865"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${status_code_desejado}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:04.243" level="INFO">POST Request : url=https://my-store2.p.rapidapi.com/catalog/product 
+ path_url=/catalog/product 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '142'} 
+ body=b'{"name": "Vitamina D", "price": "10", "manufacturer": "Teste", "category": "supplements", "description": "Teste Produto", "tags": "Teste tag"}' 
+ </msg>
+<msg timestamp="20230226 20:42:04.244" level="INFO">POST Response : url=https://my-store2.p.rapidapi.com/catalog/product 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:08 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '196', 'Connection': 'keep-alive', 'Etag': 'W/"c4-DhL/VU+Q/xyi7fWEH/JL60cXhEM"', 'x-amzn-Remapped-Content-Length': '196', 'x-amzn-RequestId': '35b8a2b7-0f6e-4439-9a93-bad601e09f2a', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'lX1qrOBYXo3F3h4KwDTkGHFon55R4v7z-VO97UXT1yzN0etcjpqLaQ==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:08 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-IsiHUwIAMFesQ=', 'X-Amzn-Trace-Id': 'Root=1-63fbee4f-37a7a4690118c0e73de91e7e;Sampled=0', 'Via': '1.1 f73b010838a44ddb3d7ec843a071c1ce.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":855961,"name":"Vitamina D","description":"Teste Produto","manufacturer":"Teste","category":"supplements","price":10,"created":"2023-02-26T23:42:07.000Z","status":"active","tags":"Teste tag"} 
+ </msg>
+<msg timestamp="20230226 20:42:04.244" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:04.244" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:03.865" endtime="20230226 20:42:04.244"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:04.247" level="INFO">{'id': 855961, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:07.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.244" endtime="20230226 20:42:04.247"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${ID_PRODUTO}</arg>
+<arg>${resposta.json()["id"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:04.249" level="INFO">${ID_PRODUTO} = 855961</msg>
+<status status="PASS" starttime="20230226 20:42:04.247" endtime="20230226 20:42:04.249"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:04.250" level="INFO">${RESPOSTA} = {'id': 855961, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:07.000Z', 'status': 'active', 'tags':...</msg>
+<status status="PASS" starttime="20230226 20:42:04.249" endtime="20230226 20:42:04.250"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:03.864" endtime="20230226 20:42:04.250"/>
+</kw>
+<kw name="Conferir se o novo produto foi cadastrado com sucesso" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:04.251" level="INFO">{'id': 855961, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:07.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.251" endtime="20230226 20:42:04.251"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${RESPOSTA}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:04.252" endtime="20230226 20:42:04.252"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:04.251" endtime="20230226 20:42:04.252"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:03.850" endtime="20230226 20:42:04.252"/>
+</test>
+<test id="s1-t2" name="Cenário 02: Cadastrar um novo produto sem valor" line="11">
+<kw name="Cadastrar novo produto sem valor" library="api_testing">
+<arg>status_code_desejado=400</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=Vitamina D</arg>
+<arg>price=</arg>
+<arg>manufacturer=Teste</arg>
+<arg>category=supplements</arg>
+<arg>description=Teste Produto</arg>
+<arg>tags=Teste tag</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:04.255" level="INFO">${body} = {'name': 'Vitamina D', 'price': '', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.254" endtime="20230226 20:42:04.255"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:04.255" level="INFO">{'name': 'Vitamina D', 'price': '', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.255" endtime="20230226 20:42:04.255"/>
+</kw>
+<kw name="Criar Sessão na MyStore" library="api_testing">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<arg>X-RapidAPI-Key=3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426</arg>
+<arg>X-RapidAPI-Host=my-store2.p.rapidapi.com</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:04.256" level="INFO">${headers} = {'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.255" endtime="20230226 20:42:04.256"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=MyStore</arg>
+<arg>url=https://my-store2.p.rapidapi.com/catalog</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230226 20:42:04.256" level="INFO">Creating Session using : alias=MyStore, url=https://my-store2.p.rapidapi.com/catalog, headers={'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230226 20:42:04.256" endtime="20230226 20:42:04.257"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:04.255" endtime="20230226 20:42:04.257"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${status_code_desejado}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:04.747" level="INFO">POST Request : url=https://my-store2.p.rapidapi.com/catalog/product 
+ path_url=/catalog/product 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '140'} 
+ body=b'{"name": "Vitamina D", "price": "", "manufacturer": "Teste", "category": "supplements", "description": "Teste Produto", "tags": "Teste tag"}' 
+ </msg>
+<msg timestamp="20230226 20:42:04.747" level="INFO">POST Response : url=https://my-store2.p.rapidapi.com/catalog/product 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:08 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '195', 'Connection': 'keep-alive', 'Etag': 'W/"c3-E2FgNWPQbtc1/YqFtcHnwKbpYK8"', 'x-amzn-Remapped-Content-Length': '195', 'x-amzn-RequestId': 'e696f980-b506-4b56-bc9d-c1ece75a239a', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': '5sl2OnrtpZFObw0KeI30k3P_7AV0RMWSGBcb1y52W3gs6E2MD1M_BQ==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:08 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-IsoEv_oAMFm9Q=', 'X-Amzn-Trace-Id': 'Root=1-63fbee50-1d47fe754a75c991141e4c6a;Sampled=0', 'Via': '1.1 3a788d8424e3bd9c1e60f007d15e15f8.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":855962,"name":"Vitamina D","description":"Teste Produto","manufacturer":"Teste","category":"supplements","price":0,"created":"2023-02-26T23:42:08.000Z","status":"active","tags":"Teste tag"} 
+ </msg>
+<msg timestamp="20230226 20:42:04.747" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:04.747" level="FAIL">Url: https://my-store2.p.rapidapi.com/catalog/product Expected status: 201 != 400</msg>
+<status status="FAIL" starttime="20230226 20:42:04.257" endtime="20230226 20:42:04.755"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230226 20:42:04.756" endtime="20230226 20:42:04.756"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20230226 20:42:04.756" endtime="20230226 20:42:04.756"/>
+</kw>
+<status status="FAIL" starttime="20230226 20:42:04.254" endtime="20230226 20:42:04.756"/>
+</kw>
+<kw name="Verificar se a API não permitiu o cadastro com valor negativo" library="api_testing">
+<status status="NOT RUN" starttime="20230226 20:42:04.757" endtime="20230226 20:42:04.757"/>
+</kw>
+<status status="FAIL" starttime="20230226 20:42:04.253" endtime="20230226 20:42:04.758">Url: https://my-store2.p.rapidapi.com/catalog/product Expected status: 201 != 400</status>
+</test>
+<test id="s1-t3" name="Cenário 03: Consultar produto" line="15">
+<kw name="Cadastrar novo produto" library="api_testing">
+<arg>status_code_desejado=201</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=Vitamina D</arg>
+<arg>price=10</arg>
+<arg>manufacturer=Teste</arg>
+<arg>category=supplements</arg>
+<arg>description=Teste Produto</arg>
+<arg>tags=Teste tag</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:04.760" level="INFO">${body} = {'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.760" endtime="20230226 20:42:04.760"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:04.760" level="INFO">{'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.760" endtime="20230226 20:42:04.760"/>
+</kw>
+<kw name="Criar Sessão na MyStore" library="api_testing">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<arg>X-RapidAPI-Key=3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426</arg>
+<arg>X-RapidAPI-Host=my-store2.p.rapidapi.com</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:04.761" level="INFO">${headers} = {'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'}</msg>
+<status status="PASS" starttime="20230226 20:42:04.760" endtime="20230226 20:42:04.761"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=MyStore</arg>
+<arg>url=https://my-store2.p.rapidapi.com/catalog</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230226 20:42:04.761" level="INFO">Creating Session using : alias=MyStore, url=https://my-store2.p.rapidapi.com/catalog, headers={'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230226 20:42:04.761" endtime="20230226 20:42:04.761"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:04.760" endtime="20230226 20:42:04.761"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${status_code_desejado}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:05.280" level="INFO">POST Request : url=https://my-store2.p.rapidapi.com/catalog/product 
+ path_url=/catalog/product 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '142'} 
+ body=b'{"name": "Vitamina D", "price": "10", "manufacturer": "Teste", "category": "supplements", "description": "Teste Produto", "tags": "Teste tag"}' 
+ </msg>
+<msg timestamp="20230226 20:42:05.280" level="INFO">POST Response : url=https://my-store2.p.rapidapi.com/catalog/product 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '196', 'Connection': 'keep-alive', 'Etag': 'W/"c4-zcaMdi5cifYfPbL4aeXrNzK+Eac"', 'x-amzn-Remapped-Content-Length': '196', 'x-amzn-RequestId': 'e0d45aff-d5bc-4e0f-ae74-fcc7d10a73fa', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'zNnBjceiWNB0JVYWIX3mHx_AoIHARWzU1hk0Cso_iq4gS7kQVuX65Q==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'X-Amz-Cf-Pop': 'GRU50-C1', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-IstFSbIAMFcag=', 'X-Amzn-Trace-Id': 'Root=1-63fbee50-566d919a299f25f85a78f99e;Sampled=0', 'Via': '1.1 f32d2bdd5c2020bad0a252a6b7deb9b2.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":855963,"name":"Vitamina D","description":"Teste Produto","manufacturer":"Teste","category":"supplements","price":10,"created":"2023-02-26T23:42:09.000Z","status":"active","tags":"Teste tag"} 
+ </msg>
+<msg timestamp="20230226 20:42:05.280" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:05.280" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:04.761" endtime="20230226 20:42:05.280"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:05.290" level="INFO">{'id': 855963, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:09.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:05.280" endtime="20230226 20:42:05.290"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${ID_PRODUTO}</arg>
+<arg>${resposta.json()["id"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:05.293" level="INFO">${ID_PRODUTO} = 855963</msg>
+<status status="PASS" starttime="20230226 20:42:05.290" endtime="20230226 20:42:05.293"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:05.294" level="INFO">${RESPOSTA} = {'id': 855963, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:09.000Z', 'status': 'active', 'tags':...</msg>
+<status status="PASS" starttime="20230226 20:42:05.293" endtime="20230226 20:42:05.294"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:04.759" endtime="20230226 20:42:05.294"/>
+</kw>
+<kw name="Consultar os dados do novo produto" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${resposta_consulta}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product/${ID_PRODUTO}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:05.722" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/product/855963 
+ path_url=/catalog/product/855963 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:05.722" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/product/855963 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '196', 'Connection': 'keep-alive', 'Etag': 'W/"c4-zcaMdi5cifYfPbL4aeXrNzK+Eac"', 'x-amzn-Remapped-Content-Length': '196', 'x-amzn-RequestId': 'f61edb18-3597-405e-af1a-af0ba66265ba', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'qGhcKcqI1OWCOnOJcqPhJHuWr8v87z4qG1IndelKCuLcjMnd2_QSZQ==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'X-Amz-Cf-Pop': 'GRU50-C1', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-IsxHvWoAMF0Ew=', 'X-Amzn-Trace-Id': 'Root=1-63fbee51-70f67e07321e4b611a04a7cc;Sampled=0', 'Via': '1.1 dcf70bd0c53ab20e200ea3ad41a9ee6c.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":855963,"name":"Vitamina D","description":"Teste Produto","manufacturer":"Teste","category":"supplements","price":10,"created":"2023-02-26T23:42:09.000Z","status":"active","tags":"Teste tag"} 
+ </msg>
+<msg timestamp="20230226 20:42:05.722" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:05.724" level="INFO">${resposta_consulta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:05.295" endtime="20230226 20:42:05.724"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESP_CONSULTA}</arg>
+<arg>${resposta_consulta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:05.726" level="INFO">${RESP_CONSULTA} = {'id': 855963, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:09.000Z', 'status': 'active', 'tags':...</msg>
+<status status="PASS" starttime="20230226 20:42:05.724" endtime="20230226 20:42:05.726"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:05.295" endtime="20230226 20:42:05.726"/>
+</kw>
+<kw name="Conferir os dados retornados" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${RESP_CONSULTA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:05.727" level="INFO">{'id': 855963, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:09.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:05.727" endtime="20230226 20:42:05.727"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>id</arg>
+<arg>${ID_PRODUTO}</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.729" endtime="20230226 20:42:05.729"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>name</arg>
+<arg>Vitamina D</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.729" endtime="20230226 20:42:05.729"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>description</arg>
+<arg>Teste Produto</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.729" endtime="20230226 20:42:05.730"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>manufacturer</arg>
+<arg>Teste</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.730" endtime="20230226 20:42:05.730"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>category</arg>
+<arg>supplements</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.730" endtime="20230226 20:42:05.730"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>price</arg>
+<arg>10</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.730" endtime="20230226 20:42:05.730"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_CONSULTA}</arg>
+<arg>tags</arg>
+<arg>Teste tag</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:05.731" endtime="20230226 20:42:05.731"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:05.727" endtime="20230226 20:42:05.731"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:04.759" endtime="20230226 20:42:05.731"/>
+</test>
+<test id="s1-t4" name="Cenário 04: Consultar produto inexistente" line="20">
+<kw name="Consultar produto com ID invalido" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${resposta_invalida}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product/0000</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:06.153" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/product/0000 
+ path_url=/catalog/product/0000 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:06.153" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/product/0000 
+ status=404, reason=Not Found 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '61', 'Connection': 'keep-alive', 'Etag': 'W/"3d-2aFefCv0+n62QFU6PLdEaervuh4"', 'x-amzn-Remapped-Content-Length': '61', 'x-amzn-RequestId': '31009db2-90cb-4296-92b8-a6726860908f', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'lO6ua_pzZK56g1pX2fsPgx1lTykLiC9evvperdk-irvzAZ3fnIsyxg==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:09 GMT', 'X-Amz-Cf-Pop': 'GRU50-C1', 'X-Cache': 'Error from cloudfront', 'x-amz-apigw-id': 'A-Is2EGIIAMFb8g=', 'X-Amzn-Trace-Id': 'Root=1-63fbee51-38adc8ac6e4fb912016381e6;Sampled=0', 'Via': '1.1 1771886d2860f832da6663a86b97d96a.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"statusCode":404,"message":"Product with ID 0000 not found"} 
+ </msg>
+<msg timestamp="20230226 20:42:06.153" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:06.153" level="INFO">${resposta_invalida} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:05.732" endtime="20230226 20:42:06.153"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESP_INVALIDA}</arg>
+<arg>${resposta_invalida.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:06.158" level="INFO">${RESP_INVALIDA} = {'statusCode': 404, 'message': 'Product with ID 0000 not found'}</msg>
+<status status="PASS" starttime="20230226 20:42:06.153" endtime="20230226 20:42:06.158"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:05.732" endtime="20230226 20:42:06.158"/>
+</kw>
+<kw name="Validar mensagem de ID invalido" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${RESP_INVALIDA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:06.158" level="INFO">{'statusCode': 404, 'message': 'Product with ID 0000 not found'}</msg>
+<status status="PASS" starttime="20230226 20:42:06.158" endtime="20230226 20:42:06.158"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_INVALIDA}</arg>
+<arg>message</arg>
+<arg>Product with ID 0000 not found</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:06.158" endtime="20230226 20:42:06.158"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.158" endtime="20230226 20:42:06.158"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:05.731" endtime="20230226 20:42:06.158"/>
+</test>
+<test id="s1-t5" name="Cenário 05: Consultar lista de produtos" line="24">
+<kw name="Consultar lista de produtos" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${get_response}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/products</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:06.557" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/products 
+ path_url=/catalog/products 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:06.557" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/products 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:10 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '451', 'Connection': 'keep-alive', 'Etag': 'W/"1c3-6J7otanGIszxgKTX5rRK14Gzf8w"', 'x-amzn-Remapped-Content-Length': '451', 'x-amzn-RequestId': 'a36a8a11-4b5e-46b6-932d-8337f19edb56', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'M040qt0MKKlJ5eYWwaSTCASlcZe0c6THFUUnPzamW90vu_JFr4P6bg==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:10 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-Is4HQXoAMFhXA=', 'X-Amzn-Trace-Id': 'Root=1-63fbee52-46289f2427eb4dfd457bfbd5;Sampled=0', 'Via': '1.1 82179e67c17dd8fe69c261bb29e441e6.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"products":[{"id":20774,"name":"tree","category":""},{"id":20779,"name":"tree","category":""},{"id":20780,"name":"tree","category":""},{"id":20785,"name":"tree","category":""},{"id":20786,"name":"tree","category":""},{"id":20791,"name":"tree","category":""},{"id":20792,"name":"tree","category":""},{"id":20797,"name":"tree","category":""},{"id":20804,"name":"tree","category":""},{"id":20815,"name":"tree","category":""}],"summary":{"count":593277}} 
+ </msg>
+<msg timestamp="20230226 20:42:06.557" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:06.557" level="INFO">${get_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:06.159" endtime="20230226 20:42:06.557"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${get_all}</arg>
+<arg>${get_response.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:06.565" level="INFO">${get_all} = {'products': [{'id': 20774, 'name': 'tree', 'category': ''}, {'id': 20779, 'name': 'tree', 'category': ''}, {'id': 20780, 'name': 'tree', 'category': ''}, {'id': 20785, 'name': 'tree', 'category': ''}...</msg>
+<status status="PASS" starttime="20230226 20:42:06.557" endtime="20230226 20:42:06.566"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.159" endtime="20230226 20:42:06.566"/>
+</kw>
+<kw name="Validar lista" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${get_all}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:06.567" level="INFO">{'products': [{'id': 20774, 'name': 'tree', 'category': ''}, {'id': 20779, 'name': 'tree', 'category': ''}, {'id': 20780, 'name': 'tree', 'category': ''}, {'id': 20785, 'name': 'tree', 'category': ''}, {'id': 20786, 'name': 'tree', 'category': ''}, {'id': 20791, 'name': 'tree', 'category': ''}, {'id': 20792, 'name': 'tree', 'category': ''}, {'id': 20797, 'name': 'tree', 'category': ''}, {'id': 20804, 'name': 'tree', 'category': ''}, {'id': 20815, 'name': 'tree', 'category': ''}], 'summary': {'count': 593277}}</msg>
+<status status="PASS" starttime="20230226 20:42:06.567" endtime="20230226 20:42:06.567"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${get_all['products'][0]}</arg>
+<arg>id</arg>
+<arg>20773</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:06.567" endtime="20230226 20:42:06.568"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.566" endtime="20230226 20:42:06.568"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.159" endtime="20230226 20:42:06.569"/>
+</test>
+<test id="s1-t6" name="Cenário 06: Consultar lista de categorias" line="28">
+<kw name="Consultar lista de categorias" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${get_categories}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/categories</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:07.483" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/categories 
+ path_url=/catalog/categories 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:07.483" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/categories 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:11 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '4678', 'Connection': 'keep-alive', 'Content-Encoding': 'gzip', 'Etag': 'W/"59a5-f8iLj64hDOn9uNPW3tNga1jVqlA"', 'Vary': 'Accept-Encoding', 'x-amzn-RequestId': 'a7a247b3-032c-4208-8581-be1757430d50', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'QES7wUEoCmkPsE_5UqoSlLcQ3ZxWnAMHKmIrsinz8xcwMIVoc4wbaA==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:11 GMT', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-Is8H7PoAMFiwA=', 'X-Amz-Cf-Pop': 'GRU50-C1', 'Via': '1.1 597dd8a4102439ae7e56785152fb5b12.cloudfront.net (CloudFront)', 'X-Amzn-Trace-Id': 'Root=1-63fbee52-536f7a6e2792b1e155cff50d;Sampled=0', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"categories":[{"category":""},{"category":"supplements"},{"category":"Stationery"},{"category":"Office Supplies"},{"category":"Test"},{"category":"Accessories"},{"category":"Bike"},{"category":"nill"},{"category":null},{"category":"Wallet"},{"category":"Watches"},{"category":"Travel Gear"},{"category":"Software"},{"category":"Clothing"},{"category":"asa"},{"category":"books"},{"category":"dsas"},{"category":"zx"},{"category":"25"},{"category":"appliance"},{"category":"velit elit in"},{"category":"Furniture"},{"category":"kategoria"},{"category":"  meble"},{"category":"hth"},{"category":"string"},{"category":"laptop"},{"category":"Technology"},{"category":"Baby"},{"category":"Movies"},{"category":"Automotive"},{"category":"Computers"},{"category":"Sports"},{"category":"Beauty"},{"category":"Health"},{"category":"Music"},{"category":"Electronics"},{"category":"Industrial"},{"category":"Home"},{"category":"Shoes"},{"category":"Grocery"},{"category":"Kids"},{"category":"Garden"},{"category":"Toys"},{"category":"Tools"},{"category":"Games"},{"category":"Jewelery"},{"category":"computer"},{"category":"Outdoors"},{"category":"Appliances"},{"category":"Calsado"},{"category":"Deportiva"},{"category":"Moviles"},{"category":"computers."},{"category":"Asado"},{"category":"Movil"},{"category":"computeir"},{"category":" "},{"category":" cocinca"},{"category":"shirt"},{"category":"Snacks"},{"category":"Computers    "},{"category":"Smart TV"},{"category":"Bebidas"},{"category":"Creator Expert"},{"category":"argentina"},{"category":"China"},{"category":"Gaming"},{"category":"PC"},{"category":"Tecnologie"},{"category":"{{category}}"},{"category":"string1"},{"category":"COMPUTERS PRUEBA"},{"category":"SEDAN2"},{"category":"Electronicos"},{"category":"SEDAN"},{"category":"PRUEBA3"},{"category":"tecnology"},{"category":"Accesorio"},{"category":"computappliancesers"},{"category":"cumputer"},{"category":"accesorios"},{"category":"electro"},{"category":"adsadadsad"},{"category":"Limpieza"},{"category":"Celulares"},{"category":"Juguetes"},{"category":"calzado"},{"category":"sombrero"},{"category":"Laptot"},{"category":"omputers"},{"category":"suplements"},{"category":"Accesories"},{"category":"X"},{"category":"leche"},{"category":"Electrodomesticos"},{"category":"accesoros"},{"category":"teste"},{"category":"Viveres"},{"category":"videogames"},{"category":"sport"},{"category":"iphone"},{"category":"tecnilogy"},{"category":"Computadora"},{"category":"Wiper blade"},{"category":"Pen"},{"category":"autos"},{"category":"Stationary items"},{"category":"Udemy"},{"category":"tv"},{"category":"Audio"},{"category":"harum"},{"category":"voluptatem"},{"category":"maiores"},{"category":"molestiae"},{"category":"fugiat"},{"category":"Electrodomestico"},{"category":"vitae"},{"category":"distinctio"},{"category":"Tecnología"},{"category":"Automatizacion"},{"category":"taom"},{"category":"Laptop dell intel i7 8gb ram"},{"category":"computadoras"},{"category":"TV de alta calidad"},{"category":"products"},{"category":"Categoria 1"},{"category":"CarnePre"},{"category":"perro"},{"category":"mi_category"},{"category":"Frituras"},{"category":"telefono"},{"category":"proteina"},{"category":"refresco"},{"category":"Juguete"},{"category":"papeleria"},{"category":"Alimentos"},{"category":"console"},{"category":"hombres"},{"category":"Verduras"},{"category":"karateDSL"},{"category":"dolore"},{"category":"Verduras_pichincha"},{"category":"cars"},{"category":"clothes"},{"category":"comida"},{"category":"Venta"},{"category":"hogar"},{"category":"Baja676"},{"category":"Abc"},{"category":" Accessories"},{"category":"&lt;category&gt;"},{"category":"insumo"},{"category":"zapatos"},{"category":"&lt;categoria&gt;"},{"category":"Categoria1"},{"category":"ROCA"},{"category":"Categoria 2"},{"category":"Tomates_pichincha"},{"category":"Pruebas"},{"category":"cocina"},{"category":"ropa"},{"category":"perrito"},{"category":"deportes"},{"category":"manifestaciones"},{"category":"tacones"},{"category":"Prueba"},{"category":"shirts"},{"category":"tecnlogia"},{"category":"insumo para el hogar"},{"category":"Apliances"},{"category":"ELectronica"},{"category":"phone"},{"category":"Sistemas"},{"category":"Electric guitar"},{"category":"a"},{"category":"RPOA"},{"category":"Applianes"},{"category":"Bike2"},{"category":"zapatillas"},{"category":"xxx"},{"category":"Person"},{"category":"Electro2"},{"category":" Juego"},{"category":"hombre"},{"category":"49 pulgadas"},{"category":"Telefono Movil"},{"category":"Telefono Movil 2T"},{"category":"Movil 2T"},{"category":"categoria"},{"category":"Sex"},{"category":"gff"},{"category":"Cel"},{"category":"action figures"},{"category":"Informatica"},{"category":"Casa"},{"category":"Vehicles"},{"category":"Televisores"},{"category":"comúters"},{"category":"ppa"},{"category":"consolas"},{"category":"COMPUTADOR"},{"category":"Televisor"},{"category":"Running"},{"category":"IT"},{"category":"automovil"},{"category":"Videojuegos"},{"category":"Consola"},{"category":"lindo"},{"category":"CellPhones"},{"category":"Streamer"},{"category":"lacteo"},{"category":"string123"},{"category":"cursos"},{"category":"pasta"},{"category":"Pie"},{"category":"Value Meal 1"},{"category":"Value Meal 2"},{"category":"Value Meal 3"},{"category":"Food"},{"category":"App"},{"category":"Smartphones"},{"category":"Ancient Technology"},{"category":"Appliences"},{"category":"Mobile Phone"},{"category":"c1"},{"category":"Dawa"},{"category":"sdfsfd"},{"category":"N/A"},{"category":"NA"},{"category":"AntiAge"},{"category":"ciencia"},{"category":"terror"},{"category":"cupidatat pariatur laborum occaecat"},{"category":"informatico"},{"category":"2"},{"category":"09"},{"category":"category_test"},{"category":"{{$randomDepartment}}"},{"category":"asd"},{"category":"Cmoputación"},{"category":"jabon"},{"category":"Ripley"},{"category":"Toyota"},{"category":"APPLE"},{"category":"card"},{"category":"Mobiles"},{"category":"abrigos"},{"category":"alimentos organicos"},{"category":"minim nisi commodo laborum"},{"category":"camaras"},{"category":"TShirt"},{"category":"adult"},{"category":"TEJIDO"},{"category":"Bazzar"},{"category":"video juegos"},{"category":"capunters"},{"category":"Colombia"},{"category":"Appilances"},{"category":"Armadura"},{"category":"Mouse"},{"category":"Arma blanca"},{"category":"TRANSPORTE"},{"category":"ARTESANIA"},{"category":"ROPAS"},{"category":"cosmos"},{"category":"tech"},{"category":"Celular"},{"category":"rico"},{"category":"hola"},{"category":"fotomoso"},{"category":"congas"},{"category":"reprehenderit consectetur nostrud in"},{"category":"spc"},{"category":"smart"},{"category":"fruta"},{"category":"notebook"},{"category":"succesfull"},{"category":"Tinta"},{"category":"Hardware"},{"category":"MONITOR"},{"category":"ullamco Excepteur aliqua"},{"category":"Interior"},{"category":"Animalitos"},{"category":"Animales"},{"category":"animal"},{"category":"comida rapida"},{"category":"postres helados"},{"category":"perritos"},{"category":"Smart Man"},{"category":"portatiles"},{"category":"chocolates"},{"category":"cookies"},{"category":"coputers"},{"category":"Category"},{"category":"laptos"},{"category":"Lenovo"},{"category":"embutido"},{"category":"sdfkh"},{"category":"one"},{"category":"TVs"},{"category":"Iphone 11 Pro Max"},{"category":"DOORS"},{"category":"Compplements"},{"category":"Suplementos"},{"category":"despensa"},{"category":"micelenea"},{"category":"deportivas"},{"category":"fruit"},{"category":"tree"},{"category":"Farmacos"},{"category":"bed"},{"category":"Guitars"},{"category":"Bicycles"},{"category":"Printers"},{"category":"qa2"},{"category":"Vitaminas"},{"category":"blues"},{"category":"Computadores"},{"category":"Moto"},{"category":"Toy"},{"category":"ELECTRONICS "},{"category":"32"},{"category":"MOTHERBOARD"},{"category":"ddfff"},{"category":"categoría_del_producto"},{"category":"tech &amp; home"},{"category":"apple 14"},{"category":"Telefonia"},{"category":"Pirata"},{"category":"servicios"},{"category":"Video Games"},{"category":"reloj"},{"category":"addCategory"},{"category":"123"},{"category":"23"},{"category":"3123"},{"category":"4"},{"category":"132"},{"category":"3"},{"category":"123123"},{"category":"234"},{"category":"253"},{"category":"141"},{"category":"124"},{"category":"vestuario"},{"category":"accesorios de cocina"},{"category":"suunto"},{"category":"periferico"},{"category":"Semillas"},{"category":"apps"},{"category":"Raices"},{"category":"alimento"},{"category":"Manga"},{"category":"Otros"},{"category":"Laptops"},{"category":"Smartphone"},{"category":"Comida y bebida"},{"category":"porcelana"},{"category":"compus"},{"category":"PCS"},{"category":"compu3oiwefoij2389jweiodw08j23dweijfoisdjfters"},{"category":"sony 50 pulgadas"},{"category":"New"},{"category":"impact"},{"category":"CD"},{"category":"ENTRETENI"},{"category":"Healthy"},{"category":"Concentrado"},{"category":"Cellphone"},{"category":"{{randonDepartment}}"},{"category":"{{$randonDepartment}}"},{"category":"COMPUTEADORA"},{"category":"bebida"},{"category":"Home Appliance"},{"category":"Dulces"},{"category":"Aplicaciones"},{"category":"hogar tv"},{"category":"hogar disfrute"},{"category":"Higiene"},{"category":"Generic Granite Salad"},{"category":"Intelligent Fresh Mouse"},{"category":"Handcrafted Concrete Mouse"},{"category":"Fantastic Wooden Fish"},{"category":"Handcrafted Cotton Fish"},{"category":"Rustic Concrete Chair"},{"category":"Awesome Soft Chicken"},{"category":"Generic Steel Cheese"},{"category":"Practical Plastic Pants"},{"category":"Fantastic Granite Keyboard"},{"category":"Small Soft Shirt"},{"category":"Fantastic Frozen Salad"},{"category":"Tasty Fresh Shirt"},{"category":"Ergonomic Steel Pants"},{"category":"Licensed Steel Ball"},{"category":"Generic Soft Sausages"},{"category":"Rustic Soft Keyboard"},{"category":"Fantastic Granite Ball"},{"category":"Handmade Soft Salad"},{"category":"Small Cotton Pants"},{"category":"Refined Plastic Shoes"},{"category":"Refined Steel Shir... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg timestamp="20230226 20:42:07.483" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:07.483" level="INFO">${get_categories} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:06.572" endtime="20230226 20:42:07.483"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${get_all_categories}</arg>
+<arg>${get_categories.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:07.491" level="INFO">${get_all_categories} = {'categories': [{'category': ''}, {'category': 'supplements'}, {'category': 'Stationery'}, {'category': 'Office Supplies'}, {'category': 'Test'}, {'category': 'Accessories'}, {'category': 'Bike'}, {'c...</msg>
+<status status="PASS" starttime="20230226 20:42:07.483" endtime="20230226 20:42:07.491"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.571" endtime="20230226 20:42:07.491"/>
+</kw>
+<kw name="Validar lista de categorias" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${get_all_categories}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:07.492" level="INFO">{'categories': [{'category': ''}, {'category': 'supplements'}, {'category': 'Stationery'}, {'category': 'Office Supplies'}, {'category': 'Test'}, {'category': 'Accessories'}, {'category': 'Bike'}, {'category': 'nill'}, {'category': None}, {'category': 'Wallet'}, {'category': 'Watches'}, {'category': 'Travel Gear'}, {'category': 'Software'}, {'category': 'Clothing'}, {'category': 'asa'}, {'category': 'books'}, {'category': 'dsas'}, {'category': 'zx'}, {'category': '25'}, {'category': 'appliance'}, {'category': 'velit elit in'}, {'category': 'Furniture'}, {'category': 'kategoria'}, {'category': '  meble'}, {'category': 'hth'}, {'category': 'string'}, {'category': 'laptop'}, {'category': 'Technology'}, {'category': 'Baby'}, {'category': 'Movies'}, {'category': 'Automotive'}, {'category': 'Computers'}, {'category': 'Sports'}, {'category': 'Beauty'}, {'category': 'Health'}, {'category': 'Music'}, {'category': 'Electronics'}, {'category': 'Industrial'}, {'category': 'Home'}, {'category': 'Shoes'}, {'category': 'Grocery'}, {'category': 'Kids'}, {'category': 'Garden'}, {'category': 'Toys'}, {'category': 'Tools'}, {'category': 'Games'}, {'category': 'Jewelery'}, {'category': 'computer'}, {'category': 'Outdoors'}, {'category': 'Appliances'}, {'category': 'Calsado'}, {'category': 'Deportiva'}, {'category': 'Moviles'}, {'category': 'computers.'}, {'category': 'Asado'}, {'category': 'Movil'}, {'category': 'computeir'}, {'category': ' '}, {'category': ' cocinca'}, {'category': 'shirt'}, {'category': 'Snacks'}, {'category': 'Computers    '}, {'category': 'Smart TV'}, {'category': 'Bebidas'}, {'category': 'Creator Expert'}, {'category': 'argentina'}, {'category': 'China'}, {'category': 'Gaming'}, {'category': 'PC'}, {'category': 'Tecnologie'}, {'category': '{{category}}'}, {'category': 'string1'}, {'category': 'COMPUTERS PRUEBA'}, {'category': 'SEDAN2'}, {'category': 'Electronicos'}, {'category': 'SEDAN'}, {'category': 'PRUEBA3'}, {'category': 'tecnology'}, {'category': 'Accesorio'}, {'category': 'computappliancesers'}, {'category': 'cumputer'}, {'category': 'accesorios'}, {'category': 'electro'}, {'category': 'adsadadsad'}, {'category': 'Limpieza'}, {'category': 'Celulares'}, {'category': 'Juguetes'}, {'category': 'calzado'}, {'category': 'sombrero'}, {'category': 'Laptot'}, {'category': 'omputers'}, {'category': 'suplements'}, {'category': 'Accesories'}, {'category': 'X'}, {'category': 'leche'}, {'category': 'Electrodomesticos'}, {'category': 'accesoros'}, {'category': 'teste'}, {'category': 'Viveres'}, {'category': 'videogames'}, {'category': 'sport'}, {'category': 'iphone'}, {'category': 'tecnilogy'}, {'category': 'Computadora'}, {'category': 'Wiper blade'}, {'category': 'Pen'}, {'category': 'autos'}, {'category': 'Stationary items'}, {'category': 'Udemy'}, {'category': 'tv'}, {'category': 'Audio'}, {'category': 'harum'}, {'category': 'voluptatem'}, {'category': 'maiores'}, {'category': 'molestiae'}, {'category': 'fugiat'}, {'category': 'Electrodomestico'}, {'category': 'vitae'}, {'category': 'distinctio'}, {'category': 'Tecnología'}, {'category': 'Automatizacion'}, {'category': 'taom'}, {'category': 'Laptop dell intel i7 8gb ram'}, {'category': 'computadoras'}, {'category': 'TV de alta calidad'}, {'category': 'products'}, {'category': 'Categoria 1'}, {'category': 'CarnePre'}, {'category': 'perro'}, {'category': 'mi_category'}, {'category': 'Frituras'}, {'category': 'telefono'}, {'category': 'proteina'}, {'category': 'refresco'}, {'category': 'Juguete'}, {'category': 'papeleria'}, {'category': 'Alimentos'}, {'category': 'console'}, {'category': 'hombres'}, {'category': 'Verduras'}, {'category': 'karateDSL'}, {'category': 'dolore'}, {'category': 'Verduras_pichincha'}, {'category': 'cars'}, {'category': 'clothes'}, {'category': 'comida'}, {'category': 'Venta'}, {'category': 'hogar'}, {'category': 'Baja676'}, {'category': 'Abc'}, {'category': ' Accessories'}, {'category': '&lt;category&gt;'}, {'category': 'insumo'}, {'category': 'zapatos'}, {'category': '&lt;categoria&gt;'}, {'category': 'Categoria1'}, {'category': 'ROCA'}, {'category': 'Categoria 2'}, {'category': 'Tomates_pichincha'}, {'category': 'Pruebas'}, {'category': 'cocina'}, {'category': 'ropa'}, {'category': 'perrito'}, {'category': 'deportes'}, {'category': 'manifestaciones'}, {'category': 'tacones'}, {'category': 'Prueba'}, {'category': 'shirts'}, {'category': 'tecnlogia'}, {'category': 'insumo para el hogar'}, {'category': 'Apliances'}, {'category': 'ELectronica'}, {'category': 'phone'}, {'category': 'Sistemas'}, {'category': 'Electric guitar'}, {'category': 'a'}, {'category': 'RPOA'}, {'category': 'Applianes'}, {'category': 'Bike2'}, {'category': 'zapatillas'}, {'category': 'xxx'}, {'category': 'Person'}, {'category': 'Electro2'}, {'category': ' Juego'}, {'category': 'hombre'}, {'category': '49 pulgadas'}, {'category': 'Telefono Movil'}, {'category': 'Telefono Movil 2T'}, {'category': 'Movil 2T'}, {'category': 'categoria'}, {'category': 'Sex'}, {'category': 'gff'}, {'category': 'Cel'}, {'category': 'action figures'}, {'category': 'Informatica'}, {'category': 'Casa'}, {'category': 'Vehicles'}, {'category': 'Televisores'}, {'category': 'comúters'}, {'category': 'ppa'}, {'category': 'consolas'}, {'category': 'COMPUTADOR'}, {'category': 'Televisor'}, {'category': 'Running'}, {'category': 'IT'}, {'category': 'automovil'}, {'category': 'Videojuegos'}, {'category': 'Consola'}, {'category': 'lindo'}, {'category': 'CellPhones'}, {'category': 'Streamer'}, {'category': 'lacteo'}, {'category': 'string123'}, {'category': 'cursos'}, {'category': 'pasta'}, {'category': 'Pie'}, {'category': 'Value Meal 1'}, {'category': 'Value Meal 2'}, {'category': 'Value Meal 3'}, {'category': 'Food'}, {'category': 'App'}, {'category': 'Smartphones'}, {'category': 'Ancient Technology'}, {'category': 'Appliences'}, {'category': 'Mobile Phone'}, {'category': 'c1'}, {'category': 'Dawa'}, {'category': 'sdfsfd'}, {'category': 'N/A'}, {'category': 'NA'}, {'category': 'AntiAge'}, {'category': 'ciencia'}, {'category': 'terror'}, {'category': 'cupidatat pariatur laborum occaecat'}, {'category': 'informatico'}, {'category': '2'}, {'category': '09'}, {'category': 'category_test'}, {'category': '{{$randomDepartment}}'}, {'category': 'asd'}, {'category': 'Cmoputación'}, {'category': 'jabon'}, {'category': 'Ripley'}, {'category': 'Toyota'}, {'category': 'APPLE'}, {'category': 'card'}, {'category': 'Mobiles'}, {'category': 'abrigos'}, {'category': 'alimentos organicos'}, {'category': 'minim nisi commodo laborum'}, {'category': 'camaras'}, {'category': 'TShirt'}, {'category': 'adult'}, {'category': 'TEJIDO'}, {'category': 'Bazzar'}, {'category': 'video juegos'}, {'category': 'capunters'}, {'category': 'Colombia'}, {'category': 'Appilances'}, {'category': 'Armadura'}, {'category': 'Mouse'}, {'category': 'Arma blanca'}, {'category': 'TRANSPORTE'}, {'category': 'ARTESANIA'}, {'category': 'ROPAS'}, {'category': 'cosmos'}, {'category': 'tech'}, {'category': 'Celular'}, {'category': 'rico'}, {'category': 'hola'}, {'category': 'fotomoso'}, {'category': 'congas'}, {'category': 'reprehenderit consectetur nostrud in'}, {'category': 'spc'}, {'category': 'smart'}, {'category': 'fruta'}, {'category': 'notebook'}, {'category': 'succesfull'}, {'category': 'Tinta'}, {'category': 'Hardware'}, {'category': 'MONITOR'}, {'category': 'ullamco Excepteur aliqua'}, {'category': 'Interior'}, {'category': 'Animalitos'}, {'category': 'Animales'}, {'category': 'animal'}, {'category': 'comida rapida'}, {'category': 'postres helados'}, {'category': 'perritos'}, {'category': 'Smart Man'}, {'category': 'portatiles'}, {'category': 'chocolates'}, {'category': 'cookies'}, {'category': 'coputers'}, {'category': 'Category'}, {'category': 'laptos'}, {'category': 'Lenovo'}, {'category': 'embutido'}, {'category': 'sdfkh'}, {'category': 'one'}, {'category': 'TVs'}, {'category': 'Iphone 11 Pro Max'}, {'category': 'DOORS'}, {'category': 'Compplements'}, {'category': 'Suplementos'}, {'category': 'despensa'}, {'category': 'micelenea'}, {'category': 'deportivas'}, {'category': 'fruit'}, {'category': 'tree'}, {'category': 'Farmacos'}, {'category': 'bed'}, {'category': 'Guitars'}, {'category': 'Bicycles'}, {'category': 'Printers'}, {'category': 'qa2'}, {'category': 'Vitaminas'}, {'category': 'blues'}, {'category': 'Computadores'}, {'category': 'Moto'}, {'category': 'Toy'}, {'category': 'ELECTRONICS '}, {'category': '32'}, {'category': 'MOTHERBOARD'}, {'category': 'ddfff'}, {'category': 'categoría_del_producto'}, {'category': 'tech &amp; home'}, {'category': 'apple 14'}, {'category': 'Telefonia'}, {'category': 'Pirata'}, {'category': 'servicios'}, {'category': 'Video Games'}, {'category': 'reloj'}, {'category': 'addCategory'}, {'category': '123'}, {'category': '23'}, {'category': '3123'}, {'category': '4'}, {'category': '132'}, {'category': '3'}, {'category': '123123'}, {'category': '234'}, {'category': '253'}, {'category': '141'}, {'category': '124'}, {'category': 'vestuario'}, {'category': 'accesorios de cocina'}, {'category': 'suunto'}, {'category': 'periferico'}, {'category': 'Semillas'}, {'category': 'apps'}, {'category': 'Raices'}, {'category': 'alimento'}, {'category': 'Manga'}, {'category': 'Otros'}, {'category': 'Laptops'}, {'category': 'Smartphone'}, {'category': 'Comida y bebida'}, {'category': 'porcelana'}, {'category': 'compus'}, {'category': 'PCS'}, {'category': 'compu3oiwefoij2389jweiodw08j23dweijfoisdjfters'}, {'category': 'sony 50 pulgadas'}, {'category': 'New'}, {'category': 'impact'}, {'category': 'CD'}, {'category': 'ENTRETENI'}, {'category': 'Healthy'}, {'category': 'Concentrado'}, {'category': 'Cellphone'}, {'category': '{{randonDepartment}}'}, {'category': '{{$randonDepartment}}'}, {'category': 'COMPUTEADORA'}, {'category': 'bebida'}, {'category': 'Home Appliance'}, {'category': 'Dulces'}, {'category': 'Aplicaciones'}, {'category': 'hogar tv'}, {'category': 'hogar disfrute'}, {'category': 'Higiene'}, {'category': 'Generic Granite Salad'}, {'category': 'Intelligent Fresh Mouse'}, {'category': 'Handcrafted Concrete Mouse'}, {'category': 'Fantastic Wooden Fish'}, {'category': 'Handcrafted Cotton Fish'}, {'category': 'Rustic Concrete Chair'}, {'category': 'Awesome Soft Chicken'}, {'category': 'Generic Steel Cheese'}, {'category': 'Practical Plastic Pants'}, {'category': 'Fantastic Granite Keyboard'}, {'category': 'Small Soft Shirt'}, {'category': 'Fantastic Frozen Salad'}, {'category': 'Tasty Fresh Shirt'}, {'category': 'Ergonomic Steel Pants'}, {'category': 'Licensed Steel Ball'}, {'category': 'Generic Soft Sausages'}, {'category': 'Rustic Soft Keyboard'}, {'category': 'Fantastic Granite Ball'}, {'category': 'Handmade Soft Salad'}, {'category': 'Small Cotton Pants'}, {'category': 'Refined Plastic Shoes'}, {'category': 'Refined Steel Shirt'}, {'category': 'Fantastic Granite Pants'}, {'category': 'Awesome Metal Mouse'}, {'category': 'Intelligent Fresh Shirt'}, {'category': 'Practical Steel Computer'}, {'category': 'Sleek Wooden Table'}, {'category': 'Handcrafted Soft Sausages'}, {'category': 'Awesome Concrete Tuna'}, {'category': 'Generic Plastic Hat'}, {'category': 'Tasty Cotton Pants'}, {'category': 'Incredible Metal Bike'}, {'category': 'Intelligent Steel Pants'}, {'category': 'Handcrafted Soft Keyboard'}, {'category': 'Small Rubber Towels'}, {'category': 'Gorgeous Cotton Keyboard'}, {'category': 'Intelligent Concrete Sausages'}, {'category': 'Fantastic Metal Fish'}, {'category': 'Gorgeous Wooden Pants'}, {'category': 'Rustic Frozen Table'}, {'category': 'Refined Cotton Cheese'}, {'category': 'Unbranded Metal Mouse'}, {'category': 'Handcrafted Wooden Shoes'}, {'category': 'Practical Concrete Chips'}, {'category': 'Unbranded Soft Bacon'}, {'category': 'Fantastic Plastic Chips'}, {'category': 'Tasty Fresh Bacon'}, {'category': 'Rustic Concrete Car'}, {'category': 'Fantastic Soft Mouse'}, {'category': 'Licensed Fresh Computer'}, {'category': 'Tasty Fresh Tuna'}, {'category': 'Awesome Soft Computer'}, {'category': 'Rustic Metal Gloves'}, {'category': 'Practical Steel Cheese'}, {'category': 'Practical Plastic Computer'}, {'category': 'Generic Wooden Towels'}, {'category': 'Refined Rubber Shoes'}, {'category': 'Handcrafted Concrete Ball'}, {'category': 'Sleek Granite Chair'}, {'category': 'Awesome Frozen Keyboard'}, {'category': 'Sleek Concrete Soap'}, {'category': 'Fantastic Fresh Computer'}, {'category': 'Sleek Concrete Sausages'}, {'category': 'Handcrafted Steel Salad'}, {'category': 'Tasty Fresh Car'}, {'category': 'Unbranded Metal Soap'}, {'category': 'Handcrafted Cotton Cheese'}, {'category': 'Rustic Frozen Gloves'}, {'category': 'Licensed Granite Bike'}, {'category': 'Incredible Wooden Salad'}, {'category': 'Fantastic Rubber Salad'}, {'category': 'Licensed Frozen Chicken'}, {'category': 'Handmade Metal Gloves'}, {'category': 'Licensed Frozen Bike'}, {'category': 'Fantastic Rubber Keyboard'}, {'category': 'Ergonomic Steel Sausages'}, {'category': 'Licensed Fresh Salad'}, {'category': 'Intelligent Granite Mouse'}, {'category': 'Rustic Concrete Bacon'}, {'category': 'Fantastic Steel Pizza'}, {'category': 'Rustic Cotton Bike'}, {'category': 'Generic Steel Table'}, {'category': 'Ergonomic Metal Sausages'}, {'category': 'Handmade Soft Shirt'}, {'category': 'Tasty Concrete Chips'}, {'category': 'Handmade Soft Gloves'}, {'category': 'Ergonomic Soft Fish'}, {'category': 'Practical Cotton Computer'}, {'category': 'Intelligent Cotton Chips'}, {'category': 'Awesome Cotton Bacon'}, {'category': 'Handmade Cotton Keyboard'}, {'category': 'Generic Fresh Computer'}, {'category': 'Handcrafted Metal Computer'}, {'category': 'Gorgeous Granite Shirt'}, {'category': 'Refined Soft Computer'}, {'category': 'Fantastic Plastic Towels'}, {'category': 'Tasty Steel Chicken'}, {'category': 'Refined Fresh Chicken'}, {'category': 'Ergonomic Granite Ball'}, {'category': 'Sleek Concrete Shoes'}, {'category': 'Ergonomic Steel Table'}, {'category': 'Tasty Metal Bacon'}, {'category': 'Gorgeous Steel Pants'}, {'category': 'Generic Rubber Computer'}, {'category': 'Incredible Rubber Pants'}, {'category': 'Fantastic Plastic Bike'}, {'category': 'Small Concrete Bike'}, {'category': 'Sleek Fresh Ball'}, {'category': 'Gorgeous Frozen Cheese'}, {'category': 'Awesome Soft Shirt'}, {'category': 'Generic Granite Ball'}, {'category': 'Practical Metal Hat'}, {'category': 'Awesome Wooden Fish'}, {'category': 'Intelligent Cotton Pants'}, {'category': 'Incredible Concrete Sausages'}, {'category': 'Small Concrete Soap'}, {'category': 'Awesome Wooden Chicken'}, {'category': 'Practical Fresh Mouse'}, {'category': 'Rustic Wooden Chair'}, {'category': 'Sleek Concrete Car'}, {'category': 'Incredible Soft Gloves'}, {'category': 'Handmade Fresh Keyboard'}, {'category': 'Generic Cotton Ball'}, {'category': 'Tasty Frozen Salad'}, {'category': 'Gorgeous Fresh Gloves'}, {'category': 'Awesome Steel Mouse'}, {'category': 'Practical Concrete Pants'}, {'category': 'Licensed Steel Shoes'}, {'category': 'Ergonomic Metal Mouse'}, {'category': 'Ergonomic Frozen Tuna'}, {'category': 'Refined Cotton Salad'}, {'category': 'Refined Concrete Car'}, {'category': 'Generic Wooden Hat'}, {'category': 'Unbranded Cotton Salad'}, {'category': 'Gorgeous Frozen Salad'}, {'category': 'Rustic Granite Computer'}, {'category': 'Sleek Rubber Pizza'}, {'category': 'Intelligent Fresh Cheese'}, {'category': 'Gorgeous Soft Towels'}, {'category': 'Unbranded Steel Hat'}, {'category': 'Awesome Metal Computer'}, {'category': 'Handmade Rubber Keyboard'}, {'category': 'Handcrafted Plastic Keyboard'}, {'category': 'Fantastic Soft Gloves'}, {'category': 'Intelligent Wooden Bacon'}, {'category': 'Tasty Steel Cheese'}, {'category': 'Awesome Soft Pizza'}, {'category': 'Handcrafted Rubber Table'}, {'category': 'Small Wooden Fish'}, {'category': 'Gorgeous Granite Soap'}, {'category': 'Ergonomic Granite Chips'}, {'category': 'Handmade Fresh Mouse'}, {'category': 'Rustic Soft Hat'}, {'category': 'Awesome Granite Salad'}, {'category': 'Fantastic Plastic Shoes'}, {'category': 'Generic Fresh Cheese'}, {'category': 'Handcrafted Frozen Chair'}, {'category': 'Handcrafted Cotton Bacon'}, {'category': 'Handmade Wooden Mouse'}, {'category': 'Practical Rubber Bike'}, {'category': 'Unbranded Frozen Chips'}, {'category': 'Gorgeous Rubber Tuna'}, {'category': 'Gorgeous Soft Shoes'}, {'category': 'Practical Cotton Cheese'}, {'category': 'Unbranded Metal Gloves'}, {'category': 'Handmade Granite Bike'}, {'category': 'Practical Cotton Sausages'}, {'category': 'Fantastic Granite Chips'}, {'category': 'Unbranded Cotton Hat'}, {'category': 'Fantastic Soft Shirt'}, {'category': 'Intelligent Granite Gloves'}, {'category': 'Awesome Concrete Mouse'}, {'category': 'Fantastic Plastic Chair'}, {'category': 'Gorgeous Frozen Car'}, {'category': 'Intelligent Soft Cheese'}, {'category': 'Small Granite Soap'}, {'category': 'Practical Fresh Hat'}, {'category': 'Refined Concrete Cheese'}, {'category': 'Handmade Concrete Pants'}, {'category': 'Ergonomic Soft Car'}, {'category': 'Licensed Plastic Towels'}, {'category': 'Generic Rubber Towels'}, {'category': 'Generic Fresh Soap'}, {'category': 'bueno'}, {'category': 'Generic Soft Towels'}, {'category': 'Practical Rubber Pizza'}, {'category': 'Gorgeous Metal Ball'}, {'category': 'Fantastic Granite Chair'}, {'category': 'A32'}, {'category': 'sony'}, {'category': 'Fruits'}, {'category': 'Vegetables'}, {'category': 'Rustic Granite Fish'}, {'category': 'Gorgeous Metal Computer'}, {'category': 'Refined Fresh Pizza'}, {'category': 'Audio y Video'}, {'category': 'tables'}, {'category': 'Devices'}, {'category': 'Intelligent Frozen Keyboard'}, {'category': 'Loja'}, {'category': 'mandarina'}, {'category': 'computacion'}, {'category': 'Ergonomic Steel Tuna'}, {'category': 'Cuadricoptero'}, {'category': 'Electronic'}, {'category': 'Cereales'}, {'category': 'Leches'}, {'category': 'movile'}, {'category': 'Fantastic Fresh Tuna'}, {'category': 'micelaneos'}, {'category': 'Generic Metal Salad'}, {'category': 'Sonido'}, {'category': 'Dulce'}, {'category': '---'}, {'category': 'Sleek Granite Chicken'}, {'category': 'Handmade Steel Table'}, {'category': 'Intelligent Concrete Tuna'}, {'category': 'Smartv'}, {'category': 'Refined Steel Car'}, {'category': 'sextoys'}, {'category': 'Antejos'}, {'category': 'videogame'}, {'category': 'CATEGOR'}, {'category': 'Small Plastic Tuna'}, {'category': 'lor'}, {'category': 'articulo de oficina'}, {'category': 'Bebestibles'}, {'category': 'ejemplo'}, {'category': 'Tegnologia'}, {'category': 'analista'}, {'category': 'oficina'}, {'category': 'uno'}, {'category': 'poddle'}, {'category': 'weed'}, {'category': 'Incredible Metal Pizza'}, {'category': 'Ergonomic Granite Chicken'}, {'category': 'animals'}, {'category': 'Ergonomic Soft Computer'}, {'category': 'LAPTOPPS'}, {'category': 'tv smart'}, {'category': 'Handmade Metal Shirt'}, {'category': 'cumputers'}, {'category': 'Awesome Granite Table'}, {'category': 'Fantastic Frozen Shoes'}, {'category': 'Lacteos'}, {'category': 'deporte'}, {'category': 'Juegos de mesa'}, {'category': 'electronico'}, {'category': 'QA'}, {'category': 'Billou'}, {'category': 'Licensed Granite Fish'}, {'category': 'Licensed Frozen Hat'}, {'category': 'Coleccionables'}, {'category': 'Entretenimiento'}, {'category': 'Licor'}, {'category': 'Licensed Steel Car'}, {'category': 'Refined Cotton Shirt'}, {'category': 'Telefonos        '}, {'category': 'Incredible Rubber Tuna'}, {'category': 'Small Plastic Pants'}, {'category': 'Practical Soft Computer'}, {'category': 'Tecnologie2'}, {'category': 'clasico'}, {'category': 'clasico2'}, {'category': 'Practical Metal Computer'}, {'category': 'phones'}, {'category': 'Niños'}, {'category': 'Ergonomic Frozen Computer'}, {'category': 'dcrc'}, {'category': 'Small Granite Pizza'}, {'category': 'Licensed Frozen Ball'}, {'category': 'Common'}, {'category': 'Intelligent Fresh Car'}, {'category': 'Intelligent Plastic Car'}, {'category': 'Appliances1'}, {'category': 'Citrico'}, {'category': 'plasma'}, {'category': 'Intelligent Fresh Gloves'}, {'category': 'Enlatados'}, {'category': 'Granos y. Semillas'}, {'category': 'Small Steel Sausages'}, {'category': 'spaceman'}, {'category': 'Intelligent Granite Cheese'}, {'category': 'Gorgeous Rubber Keyboard'}, {'category': 'toyss'}, {'category': 'Study'}, {'category': 'Rustic Steel Computer'}, {'category': 'Mobile'}, {'category': 'qlq'}, {'category': 'telefonos'}, {'category': 'TV`s 50'}, {'category': 'TV`s smart'}, {'category': 'Tasty Frozen Computer'}, {'category': 'eletronic'}, {'category': 'fugiat esse tempor exercitation ea'}, {'category': 'caniche toy'}, {'category': 'Maricos'}, {'category': ' Appliances'}, {'category': 'b'}, {'category': 'pet'}, {'category': 'Awesome Steel Chicken'}, {'category': 'Licensed Frozen Car'}, {'category': 'School'}, {'category': '1'}, {'category': 'acete'}, {'category': 'Auto'}, {'category': 'Incredible Frozen Gloves'}, {'category': 'Gorgeous Fresh Chips'}, {'category': 'biuro'}, {'category': 'utiles'}, {'category': 'Small Concrete Shirt'}, {'category': 'dog'}, {'category': 'Tecnologica'}, {'category': 'Sleek Granite Gloves'}, {'category': 'Lentes de sol'}, {'category': 'industria'}, {'category': 'comercio'}, {'category': 'Aviation'}, {'category': 'ladron'}, {'category': 'Handcrafted Rubber Towels'}, {'category': '{{categoria}}'}, {'category': 'Awesome Cotton Sausages'}, {'category': 'Men'}, {'category': 'Applieances'}, {'category': 'Unbranded Metal Towels'}, {'category': 'TestCat'}, {'category': 'Domain'}, {'category': 'Appliamces'}, {'category': 'Cuidados Corporales'}, {'category': 'Generic Wooden Salad'}, {'category': 'fasdf'}, {'category': '{{$$randomDepartment}}'}, {'category': 'Ergonomic Steel Hat'}, {'category': 'Refined Steel Mouse'}, {'category': 'Intelligent Concrete Hat'}, {'category': 'Frutas'}, {'category': 'Persona'}, {'category': 'Salad'}, {'category': 'Car'}, {'category': 'Shitt'}, {'category': 'Handmade Concrete Ball'}, {'category': 'Cheese'}, {'category': 'Chicken'}, {'category': 'Pants'}, {'category': 'Bacon'}, {'category': 'Table'}, {'category': 'Handcrafted Soft Chicken'}, {'category': 'Fish'}, {'category': 'Chair'}, {'category': 'Gloves'}, {'category': 'Electrodomestics'}, {'category': 'carros'}, {'category': 'Rustic Frozen Towels'}, {'category': 'Generic Frozen Soap'}, {'category': 'forniture'}, {'category': 'Refined Metal Keyboard'}, {'category': 'electricidad comercial e industrial'}, {'category': 'electricidad'}, {'category': 'Handcrafted Concrete Computer'}, {'category': 'Verdura'}, {'category': 'camiseta'}, {'category': 'Intelligent Concrete Gloves'}, {'category': 'criptomonedas'}, {'category': 'Handcrafted Rubber Shoes'}, {'category': 'Supplement'}, {'category': 'Comunicacion'}, {'category': 'CPantallas'}, {'category': 'ELECTRODIMESTICO'}, {'category': 'Handcrafted Metal Car'}, {'category': 'Lentes de sol chetos'}, {'category': 'Handcrafted Fresh Car'}, {'category': 'abc-123'}, {'category': 'Unbranded Wooden Cheese'}, {'category': '32 pulgadas'}, {'category': 'Intelligent Wooden Pants'}, {'category': 'Intelligent Steel Gloves'}, {'category': 'Herramientas'}, {'category': 'Lentes espejados'}, {'category': 'Awesome Granite Gloves'}, {'category': 'Small Rubber Computer'}, {'category': 'Tablet'}, {'category': 'Gorgeous Rubber Shirt'}, {'category': 'Family'}, {'category': 'Licensed Frozen Chips'}, {'category': 'palos'}, {'category': 'Sleek Metal Shoes'}, {'category': 'Sleek Frozen Car'}, {'category': 'Domestico'}, {'category': 'gamer'}, {'category': '2023'}, {'category': 'laptops gaming'}, {'category': 'Succionador de pepita'}, {'category': 'Felicidad empaquetada'}, {'category': 'Small Granite Sausages'}, {'category': 'mascotas'}, {'category': 'fast-food'}, {'category': 'Humano'}, {'category': 'Television'}, {'category': 'Sleek Frozen Pants'}, {'category': 'Personal computer'}, {'category': 'Muebles'}, {'category': 'Awesome Granite Chair'}, {'category': 'abarrotes'}, {'category': 'Awesome Steel Computer'}, {'category': 'PSE'}, {'category': 'planos'}, {'category': 'Tasty Granite Ball'}, {'category': '&lt;string&gt;'}, {'category': 'Awesome Rubber Chips'}, {'category': 'Practical Concrete Towels'}, {'category': 'Licensed Granite Chips'}, {'category': 'Coca Cola'}, {'category': 'Refrescos de sabor'}, {'category': 'Refrescos'}, {'category': 'Rustic Steel Chicken'}, {'category': 'product'}, {'category': 'Handcrafted Cotton Mouse'}, {'category': 'Rustic Cotton Sausages'}, {'category': 'zaka'}, {'category': 'sdfsdf'}, {'category': 'Awesome Fresh Tuna'}]}</msg>
+<status status="PASS" starttime="20230226 20:42:07.492" endtime="20230226 20:42:07.493"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:07.491" endtime="20230226 20:42:07.493"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:06.571" endtime="20230226 20:42:07.493"/>
+</test>
+<test id="s1-t7" name="Cenário 07: Consultar lista com categoria inexistente" line="32">
+<kw name="Consultar lista de categorias" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${get_categories}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/categories</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:08.531" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/categories 
+ path_url=/catalog/categories 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:08.531" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/categories 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:12 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '4678', 'Connection': 'keep-alive', 'Content-Encoding': 'gzip', 'Etag': 'W/"59a5-f8iLj64hDOn9uNPW3tNga1jVqlA"', 'Vary': 'Accept-Encoding', 'x-amzn-RequestId': 'a138d462-80b6-4c6e-b857-0b79074e92dc', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': '3w1XFfLft44fUlrRj2kl2TwSdpCg8iPYYZU0iWN_wVS6eFo8M0qNig==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:12 GMT', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-ItFEkeoAMF-WQ=', 'X-Amz-Cf-Pop': 'GRU3-C2', 'Via': '1.1 c84d22c5d75786edd8237a2112141aca.cloudfront.net (CloudFront)', 'X-Amzn-Trace-Id': 'Root=1-63fbee53-6e5de0146403ea01508fc167;Sampled=0', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"categories":[{"category":""},{"category":"supplements"},{"category":"Stationery"},{"category":"Office Supplies"},{"category":"Test"},{"category":"Accessories"},{"category":"Bike"},{"category":"nill"},{"category":null},{"category":"Wallet"},{"category":"Watches"},{"category":"Travel Gear"},{"category":"Software"},{"category":"Clothing"},{"category":"asa"},{"category":"books"},{"category":"dsas"},{"category":"zx"},{"category":"25"},{"category":"appliance"},{"category":"velit elit in"},{"category":"Furniture"},{"category":"kategoria"},{"category":"  meble"},{"category":"hth"},{"category":"string"},{"category":"laptop"},{"category":"Technology"},{"category":"Baby"},{"category":"Movies"},{"category":"Automotive"},{"category":"Computers"},{"category":"Sports"},{"category":"Beauty"},{"category":"Health"},{"category":"Music"},{"category":"Electronics"},{"category":"Industrial"},{"category":"Home"},{"category":"Shoes"},{"category":"Grocery"},{"category":"Kids"},{"category":"Garden"},{"category":"Toys"},{"category":"Tools"},{"category":"Games"},{"category":"Jewelery"},{"category":"computer"},{"category":"Outdoors"},{"category":"Appliances"},{"category":"Calsado"},{"category":"Deportiva"},{"category":"Moviles"},{"category":"computers."},{"category":"Asado"},{"category":"Movil"},{"category":"computeir"},{"category":" "},{"category":" cocinca"},{"category":"shirt"},{"category":"Snacks"},{"category":"Computers    "},{"category":"Smart TV"},{"category":"Bebidas"},{"category":"Creator Expert"},{"category":"argentina"},{"category":"China"},{"category":"Gaming"},{"category":"PC"},{"category":"Tecnologie"},{"category":"{{category}}"},{"category":"string1"},{"category":"COMPUTERS PRUEBA"},{"category":"SEDAN2"},{"category":"Electronicos"},{"category":"SEDAN"},{"category":"PRUEBA3"},{"category":"tecnology"},{"category":"Accesorio"},{"category":"computappliancesers"},{"category":"cumputer"},{"category":"accesorios"},{"category":"electro"},{"category":"adsadadsad"},{"category":"Limpieza"},{"category":"Celulares"},{"category":"Juguetes"},{"category":"calzado"},{"category":"sombrero"},{"category":"Laptot"},{"category":"omputers"},{"category":"suplements"},{"category":"Accesories"},{"category":"X"},{"category":"leche"},{"category":"Electrodomesticos"},{"category":"accesoros"},{"category":"teste"},{"category":"Viveres"},{"category":"videogames"},{"category":"sport"},{"category":"iphone"},{"category":"tecnilogy"},{"category":"Computadora"},{"category":"Wiper blade"},{"category":"Pen"},{"category":"autos"},{"category":"Stationary items"},{"category":"Udemy"},{"category":"tv"},{"category":"Audio"},{"category":"harum"},{"category":"voluptatem"},{"category":"maiores"},{"category":"molestiae"},{"category":"fugiat"},{"category":"Electrodomestico"},{"category":"vitae"},{"category":"distinctio"},{"category":"Tecnología"},{"category":"Automatizacion"},{"category":"taom"},{"category":"Laptop dell intel i7 8gb ram"},{"category":"computadoras"},{"category":"TV de alta calidad"},{"category":"products"},{"category":"Categoria 1"},{"category":"CarnePre"},{"category":"perro"},{"category":"mi_category"},{"category":"Frituras"},{"category":"telefono"},{"category":"proteina"},{"category":"refresco"},{"category":"Juguete"},{"category":"papeleria"},{"category":"Alimentos"},{"category":"console"},{"category":"hombres"},{"category":"Verduras"},{"category":"karateDSL"},{"category":"dolore"},{"category":"Verduras_pichincha"},{"category":"cars"},{"category":"clothes"},{"category":"comida"},{"category":"Venta"},{"category":"hogar"},{"category":"Baja676"},{"category":"Abc"},{"category":" Accessories"},{"category":"&lt;category&gt;"},{"category":"insumo"},{"category":"zapatos"},{"category":"&lt;categoria&gt;"},{"category":"Categoria1"},{"category":"ROCA"},{"category":"Categoria 2"},{"category":"Tomates_pichincha"},{"category":"Pruebas"},{"category":"cocina"},{"category":"ropa"},{"category":"perrito"},{"category":"deportes"},{"category":"manifestaciones"},{"category":"tacones"},{"category":"Prueba"},{"category":"shirts"},{"category":"tecnlogia"},{"category":"insumo para el hogar"},{"category":"Apliances"},{"category":"ELectronica"},{"category":"phone"},{"category":"Sistemas"},{"category":"Electric guitar"},{"category":"a"},{"category":"RPOA"},{"category":"Applianes"},{"category":"Bike2"},{"category":"zapatillas"},{"category":"xxx"},{"category":"Person"},{"category":"Electro2"},{"category":" Juego"},{"category":"hombre"},{"category":"49 pulgadas"},{"category":"Telefono Movil"},{"category":"Telefono Movil 2T"},{"category":"Movil 2T"},{"category":"categoria"},{"category":"Sex"},{"category":"gff"},{"category":"Cel"},{"category":"action figures"},{"category":"Informatica"},{"category":"Casa"},{"category":"Vehicles"},{"category":"Televisores"},{"category":"comúters"},{"category":"ppa"},{"category":"consolas"},{"category":"COMPUTADOR"},{"category":"Televisor"},{"category":"Running"},{"category":"IT"},{"category":"automovil"},{"category":"Videojuegos"},{"category":"Consola"},{"category":"lindo"},{"category":"CellPhones"},{"category":"Streamer"},{"category":"lacteo"},{"category":"string123"},{"category":"cursos"},{"category":"pasta"},{"category":"Pie"},{"category":"Value Meal 1"},{"category":"Value Meal 2"},{"category":"Value Meal 3"},{"category":"Food"},{"category":"App"},{"category":"Smartphones"},{"category":"Ancient Technology"},{"category":"Appliences"},{"category":"Mobile Phone"},{"category":"c1"},{"category":"Dawa"},{"category":"sdfsfd"},{"category":"N/A"},{"category":"NA"},{"category":"AntiAge"},{"category":"ciencia"},{"category":"terror"},{"category":"cupidatat pariatur laborum occaecat"},{"category":"informatico"},{"category":"2"},{"category":"09"},{"category":"category_test"},{"category":"{{$randomDepartment}}"},{"category":"asd"},{"category":"Cmoputación"},{"category":"jabon"},{"category":"Ripley"},{"category":"Toyota"},{"category":"APPLE"},{"category":"card"},{"category":"Mobiles"},{"category":"abrigos"},{"category":"alimentos organicos"},{"category":"minim nisi commodo laborum"},{"category":"camaras"},{"category":"TShirt"},{"category":"adult"},{"category":"TEJIDO"},{"category":"Bazzar"},{"category":"video juegos"},{"category":"capunters"},{"category":"Colombia"},{"category":"Appilances"},{"category":"Armadura"},{"category":"Mouse"},{"category":"Arma blanca"},{"category":"TRANSPORTE"},{"category":"ARTESANIA"},{"category":"ROPAS"},{"category":"cosmos"},{"category":"tech"},{"category":"Celular"},{"category":"rico"},{"category":"hola"},{"category":"fotomoso"},{"category":"congas"},{"category":"reprehenderit consectetur nostrud in"},{"category":"spc"},{"category":"smart"},{"category":"fruta"},{"category":"notebook"},{"category":"succesfull"},{"category":"Tinta"},{"category":"Hardware"},{"category":"MONITOR"},{"category":"ullamco Excepteur aliqua"},{"category":"Interior"},{"category":"Animalitos"},{"category":"Animales"},{"category":"animal"},{"category":"comida rapida"},{"category":"postres helados"},{"category":"perritos"},{"category":"Smart Man"},{"category":"portatiles"},{"category":"chocolates"},{"category":"cookies"},{"category":"coputers"},{"category":"Category"},{"category":"laptos"},{"category":"Lenovo"},{"category":"embutido"},{"category":"sdfkh"},{"category":"one"},{"category":"TVs"},{"category":"Iphone 11 Pro Max"},{"category":"DOORS"},{"category":"Compplements"},{"category":"Suplementos"},{"category":"despensa"},{"category":"micelenea"},{"category":"deportivas"},{"category":"fruit"},{"category":"tree"},{"category":"Farmacos"},{"category":"bed"},{"category":"Guitars"},{"category":"Bicycles"},{"category":"Printers"},{"category":"qa2"},{"category":"Vitaminas"},{"category":"blues"},{"category":"Computadores"},{"category":"Moto"},{"category":"Toy"},{"category":"ELECTRONICS "},{"category":"32"},{"category":"MOTHERBOARD"},{"category":"ddfff"},{"category":"categoría_del_producto"},{"category":"tech &amp; home"},{"category":"apple 14"},{"category":"Telefonia"},{"category":"Pirata"},{"category":"servicios"},{"category":"Video Games"},{"category":"reloj"},{"category":"addCategory"},{"category":"123"},{"category":"23"},{"category":"3123"},{"category":"4"},{"category":"132"},{"category":"3"},{"category":"123123"},{"category":"234"},{"category":"253"},{"category":"141"},{"category":"124"},{"category":"vestuario"},{"category":"accesorios de cocina"},{"category":"suunto"},{"category":"periferico"},{"category":"Semillas"},{"category":"apps"},{"category":"Raices"},{"category":"alimento"},{"category":"Manga"},{"category":"Otros"},{"category":"Laptops"},{"category":"Smartphone"},{"category":"Comida y bebida"},{"category":"porcelana"},{"category":"compus"},{"category":"PCS"},{"category":"compu3oiwefoij2389jweiodw08j23dweijfoisdjfters"},{"category":"sony 50 pulgadas"},{"category":"New"},{"category":"impact"},{"category":"CD"},{"category":"ENTRETENI"},{"category":"Healthy"},{"category":"Concentrado"},{"category":"Cellphone"},{"category":"{{randonDepartment}}"},{"category":"{{$randonDepartment}}"},{"category":"COMPUTEADORA"},{"category":"bebida"},{"category":"Home Appliance"},{"category":"Dulces"},{"category":"Aplicaciones"},{"category":"hogar tv"},{"category":"hogar disfrute"},{"category":"Higiene"},{"category":"Generic Granite Salad"},{"category":"Intelligent Fresh Mouse"},{"category":"Handcrafted Concrete Mouse"},{"category":"Fantastic Wooden Fish"},{"category":"Handcrafted Cotton Fish"},{"category":"Rustic Concrete Chair"},{"category":"Awesome Soft Chicken"},{"category":"Generic Steel Cheese"},{"category":"Practical Plastic Pants"},{"category":"Fantastic Granite Keyboard"},{"category":"Small Soft Shirt"},{"category":"Fantastic Frozen Salad"},{"category":"Tasty Fresh Shirt"},{"category":"Ergonomic Steel Pants"},{"category":"Licensed Steel Ball"},{"category":"Generic Soft Sausages"},{"category":"Rustic Soft Keyboard"},{"category":"Fantastic Granite Ball"},{"category":"Handmade Soft Salad"},{"category":"Small Cotton Pants"},{"category":"Refined Plastic Shoes"},{"category":"Refined Steel Shir... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg timestamp="20230226 20:42:08.545" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:08.545" level="INFO">${get_categories} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:07.495" endtime="20230226 20:42:08.545"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${get_all_categories}</arg>
+<arg>${get_categories.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:08.552" level="INFO">${get_all_categories} = {'categories': [{'category': ''}, {'category': 'supplements'}, {'category': 'Stationery'}, {'category': 'Office Supplies'}, {'category': 'Test'}, {'category': 'Accessories'}, {'category': 'Bike'}, {'c...</msg>
+<status status="PASS" starttime="20230226 20:42:08.545" endtime="20230226 20:42:08.552"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:07.495" endtime="20230226 20:42:08.552"/>
+</kw>
+<kw name="Validar categoria inexistente" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${get_all_categories}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:08.555" level="INFO">{'categories': [{'category': ''}, {'category': 'supplements'}, {'category': 'Stationery'}, {'category': 'Office Supplies'}, {'category': 'Test'}, {'category': 'Accessories'}, {'category': 'Bike'}, {'category': 'nill'}, {'category': None}, {'category': 'Wallet'}, {'category': 'Watches'}, {'category': 'Travel Gear'}, {'category': 'Software'}, {'category': 'Clothing'}, {'category': 'asa'}, {'category': 'books'}, {'category': 'dsas'}, {'category': 'zx'}, {'category': '25'}, {'category': 'appliance'}, {'category': 'velit elit in'}, {'category': 'Furniture'}, {'category': 'kategoria'}, {'category': '  meble'}, {'category': 'hth'}, {'category': 'string'}, {'category': 'laptop'}, {'category': 'Technology'}, {'category': 'Baby'}, {'category': 'Movies'}, {'category': 'Automotive'}, {'category': 'Computers'}, {'category': 'Sports'}, {'category': 'Beauty'}, {'category': 'Health'}, {'category': 'Music'}, {'category': 'Electronics'}, {'category': 'Industrial'}, {'category': 'Home'}, {'category': 'Shoes'}, {'category': 'Grocery'}, {'category': 'Kids'}, {'category': 'Garden'}, {'category': 'Toys'}, {'category': 'Tools'}, {'category': 'Games'}, {'category': 'Jewelery'}, {'category': 'computer'}, {'category': 'Outdoors'}, {'category': 'Appliances'}, {'category': 'Calsado'}, {'category': 'Deportiva'}, {'category': 'Moviles'}, {'category': 'computers.'}, {'category': 'Asado'}, {'category': 'Movil'}, {'category': 'computeir'}, {'category': ' '}, {'category': ' cocinca'}, {'category': 'shirt'}, {'category': 'Snacks'}, {'category': 'Computers    '}, {'category': 'Smart TV'}, {'category': 'Bebidas'}, {'category': 'Creator Expert'}, {'category': 'argentina'}, {'category': 'China'}, {'category': 'Gaming'}, {'category': 'PC'}, {'category': 'Tecnologie'}, {'category': '{{category}}'}, {'category': 'string1'}, {'category': 'COMPUTERS PRUEBA'}, {'category': 'SEDAN2'}, {'category': 'Electronicos'}, {'category': 'SEDAN'}, {'category': 'PRUEBA3'}, {'category': 'tecnology'}, {'category': 'Accesorio'}, {'category': 'computappliancesers'}, {'category': 'cumputer'}, {'category': 'accesorios'}, {'category': 'electro'}, {'category': 'adsadadsad'}, {'category': 'Limpieza'}, {'category': 'Celulares'}, {'category': 'Juguetes'}, {'category': 'calzado'}, {'category': 'sombrero'}, {'category': 'Laptot'}, {'category': 'omputers'}, {'category': 'suplements'}, {'category': 'Accesories'}, {'category': 'X'}, {'category': 'leche'}, {'category': 'Electrodomesticos'}, {'category': 'accesoros'}, {'category': 'teste'}, {'category': 'Viveres'}, {'category': 'videogames'}, {'category': 'sport'}, {'category': 'iphone'}, {'category': 'tecnilogy'}, {'category': 'Computadora'}, {'category': 'Wiper blade'}, {'category': 'Pen'}, {'category': 'autos'}, {'category': 'Stationary items'}, {'category': 'Udemy'}, {'category': 'tv'}, {'category': 'Audio'}, {'category': 'harum'}, {'category': 'voluptatem'}, {'category': 'maiores'}, {'category': 'molestiae'}, {'category': 'fugiat'}, {'category': 'Electrodomestico'}, {'category': 'vitae'}, {'category': 'distinctio'}, {'category': 'Tecnología'}, {'category': 'Automatizacion'}, {'category': 'taom'}, {'category': 'Laptop dell intel i7 8gb ram'}, {'category': 'computadoras'}, {'category': 'TV de alta calidad'}, {'category': 'products'}, {'category': 'Categoria 1'}, {'category': 'CarnePre'}, {'category': 'perro'}, {'category': 'mi_category'}, {'category': 'Frituras'}, {'category': 'telefono'}, {'category': 'proteina'}, {'category': 'refresco'}, {'category': 'Juguete'}, {'category': 'papeleria'}, {'category': 'Alimentos'}, {'category': 'console'}, {'category': 'hombres'}, {'category': 'Verduras'}, {'category': 'karateDSL'}, {'category': 'dolore'}, {'category': 'Verduras_pichincha'}, {'category': 'cars'}, {'category': 'clothes'}, {'category': 'comida'}, {'category': 'Venta'}, {'category': 'hogar'}, {'category': 'Baja676'}, {'category': 'Abc'}, {'category': ' Accessories'}, {'category': '&lt;category&gt;'}, {'category': 'insumo'}, {'category': 'zapatos'}, {'category': '&lt;categoria&gt;'}, {'category': 'Categoria1'}, {'category': 'ROCA'}, {'category': 'Categoria 2'}, {'category': 'Tomates_pichincha'}, {'category': 'Pruebas'}, {'category': 'cocina'}, {'category': 'ropa'}, {'category': 'perrito'}, {'category': 'deportes'}, {'category': 'manifestaciones'}, {'category': 'tacones'}, {'category': 'Prueba'}, {'category': 'shirts'}, {'category': 'tecnlogia'}, {'category': 'insumo para el hogar'}, {'category': 'Apliances'}, {'category': 'ELectronica'}, {'category': 'phone'}, {'category': 'Sistemas'}, {'category': 'Electric guitar'}, {'category': 'a'}, {'category': 'RPOA'}, {'category': 'Applianes'}, {'category': 'Bike2'}, {'category': 'zapatillas'}, {'category': 'xxx'}, {'category': 'Person'}, {'category': 'Electro2'}, {'category': ' Juego'}, {'category': 'hombre'}, {'category': '49 pulgadas'}, {'category': 'Telefono Movil'}, {'category': 'Telefono Movil 2T'}, {'category': 'Movil 2T'}, {'category': 'categoria'}, {'category': 'Sex'}, {'category': 'gff'}, {'category': 'Cel'}, {'category': 'action figures'}, {'category': 'Informatica'}, {'category': 'Casa'}, {'category': 'Vehicles'}, {'category': 'Televisores'}, {'category': 'comúters'}, {'category': 'ppa'}, {'category': 'consolas'}, {'category': 'COMPUTADOR'}, {'category': 'Televisor'}, {'category': 'Running'}, {'category': 'IT'}, {'category': 'automovil'}, {'category': 'Videojuegos'}, {'category': 'Consola'}, {'category': 'lindo'}, {'category': 'CellPhones'}, {'category': 'Streamer'}, {'category': 'lacteo'}, {'category': 'string123'}, {'category': 'cursos'}, {'category': 'pasta'}, {'category': 'Pie'}, {'category': 'Value Meal 1'}, {'category': 'Value Meal 2'}, {'category': 'Value Meal 3'}, {'category': 'Food'}, {'category': 'App'}, {'category': 'Smartphones'}, {'category': 'Ancient Technology'}, {'category': 'Appliences'}, {'category': 'Mobile Phone'}, {'category': 'c1'}, {'category': 'Dawa'}, {'category': 'sdfsfd'}, {'category': 'N/A'}, {'category': 'NA'}, {'category': 'AntiAge'}, {'category': 'ciencia'}, {'category': 'terror'}, {'category': 'cupidatat pariatur laborum occaecat'}, {'category': 'informatico'}, {'category': '2'}, {'category': '09'}, {'category': 'category_test'}, {'category': '{{$randomDepartment}}'}, {'category': 'asd'}, {'category': 'Cmoputación'}, {'category': 'jabon'}, {'category': 'Ripley'}, {'category': 'Toyota'}, {'category': 'APPLE'}, {'category': 'card'}, {'category': 'Mobiles'}, {'category': 'abrigos'}, {'category': 'alimentos organicos'}, {'category': 'minim nisi commodo laborum'}, {'category': 'camaras'}, {'category': 'TShirt'}, {'category': 'adult'}, {'category': 'TEJIDO'}, {'category': 'Bazzar'}, {'category': 'video juegos'}, {'category': 'capunters'}, {'category': 'Colombia'}, {'category': 'Appilances'}, {'category': 'Armadura'}, {'category': 'Mouse'}, {'category': 'Arma blanca'}, {'category': 'TRANSPORTE'}, {'category': 'ARTESANIA'}, {'category': 'ROPAS'}, {'category': 'cosmos'}, {'category': 'tech'}, {'category': 'Celular'}, {'category': 'rico'}, {'category': 'hola'}, {'category': 'fotomoso'}, {'category': 'congas'}, {'category': 'reprehenderit consectetur nostrud in'}, {'category': 'spc'}, {'category': 'smart'}, {'category': 'fruta'}, {'category': 'notebook'}, {'category': 'succesfull'}, {'category': 'Tinta'}, {'category': 'Hardware'}, {'category': 'MONITOR'}, {'category': 'ullamco Excepteur aliqua'}, {'category': 'Interior'}, {'category': 'Animalitos'}, {'category': 'Animales'}, {'category': 'animal'}, {'category': 'comida rapida'}, {'category': 'postres helados'}, {'category': 'perritos'}, {'category': 'Smart Man'}, {'category': 'portatiles'}, {'category': 'chocolates'}, {'category': 'cookies'}, {'category': 'coputers'}, {'category': 'Category'}, {'category': 'laptos'}, {'category': 'Lenovo'}, {'category': 'embutido'}, {'category': 'sdfkh'}, {'category': 'one'}, {'category': 'TVs'}, {'category': 'Iphone 11 Pro Max'}, {'category': 'DOORS'}, {'category': 'Compplements'}, {'category': 'Suplementos'}, {'category': 'despensa'}, {'category': 'micelenea'}, {'category': 'deportivas'}, {'category': 'fruit'}, {'category': 'tree'}, {'category': 'Farmacos'}, {'category': 'bed'}, {'category': 'Guitars'}, {'category': 'Bicycles'}, {'category': 'Printers'}, {'category': 'qa2'}, {'category': 'Vitaminas'}, {'category': 'blues'}, {'category': 'Computadores'}, {'category': 'Moto'}, {'category': 'Toy'}, {'category': 'ELECTRONICS '}, {'category': '32'}, {'category': 'MOTHERBOARD'}, {'category': 'ddfff'}, {'category': 'categoría_del_producto'}, {'category': 'tech &amp; home'}, {'category': 'apple 14'}, {'category': 'Telefonia'}, {'category': 'Pirata'}, {'category': 'servicios'}, {'category': 'Video Games'}, {'category': 'reloj'}, {'category': 'addCategory'}, {'category': '123'}, {'category': '23'}, {'category': '3123'}, {'category': '4'}, {'category': '132'}, {'category': '3'}, {'category': '123123'}, {'category': '234'}, {'category': '253'}, {'category': '141'}, {'category': '124'}, {'category': 'vestuario'}, {'category': 'accesorios de cocina'}, {'category': 'suunto'}, {'category': 'periferico'}, {'category': 'Semillas'}, {'category': 'apps'}, {'category': 'Raices'}, {'category': 'alimento'}, {'category': 'Manga'}, {'category': 'Otros'}, {'category': 'Laptops'}, {'category': 'Smartphone'}, {'category': 'Comida y bebida'}, {'category': 'porcelana'}, {'category': 'compus'}, {'category': 'PCS'}, {'category': 'compu3oiwefoij2389jweiodw08j23dweijfoisdjfters'}, {'category': 'sony 50 pulgadas'}, {'category': 'New'}, {'category': 'impact'}, {'category': 'CD'}, {'category': 'ENTRETENI'}, {'category': 'Healthy'}, {'category': 'Concentrado'}, {'category': 'Cellphone'}, {'category': '{{randonDepartment}}'}, {'category': '{{$randonDepartment}}'}, {'category': 'COMPUTEADORA'}, {'category': 'bebida'}, {'category': 'Home Appliance'}, {'category': 'Dulces'}, {'category': 'Aplicaciones'}, {'category': 'hogar tv'}, {'category': 'hogar disfrute'}, {'category': 'Higiene'}, {'category': 'Generic Granite Salad'}, {'category': 'Intelligent Fresh Mouse'}, {'category': 'Handcrafted Concrete Mouse'}, {'category': 'Fantastic Wooden Fish'}, {'category': 'Handcrafted Cotton Fish'}, {'category': 'Rustic Concrete Chair'}, {'category': 'Awesome Soft Chicken'}, {'category': 'Generic Steel Cheese'}, {'category': 'Practical Plastic Pants'}, {'category': 'Fantastic Granite Keyboard'}, {'category': 'Small Soft Shirt'}, {'category': 'Fantastic Frozen Salad'}, {'category': 'Tasty Fresh Shirt'}, {'category': 'Ergonomic Steel Pants'}, {'category': 'Licensed Steel Ball'}, {'category': 'Generic Soft Sausages'}, {'category': 'Rustic Soft Keyboard'}, {'category': 'Fantastic Granite Ball'}, {'category': 'Handmade Soft Salad'}, {'category': 'Small Cotton Pants'}, {'category': 'Refined Plastic Shoes'}, {'category': 'Refined Steel Shirt'}, {'category': 'Fantastic Granite Pants'}, {'category': 'Awesome Metal Mouse'}, {'category': 'Intelligent Fresh Shirt'}, {'category': 'Practical Steel Computer'}, {'category': 'Sleek Wooden Table'}, {'category': 'Handcrafted Soft Sausages'}, {'category': 'Awesome Concrete Tuna'}, {'category': 'Generic Plastic Hat'}, {'category': 'Tasty Cotton Pants'}, {'category': 'Incredible Metal Bike'}, {'category': 'Intelligent Steel Pants'}, {'category': 'Handcrafted Soft Keyboard'}, {'category': 'Small Rubber Towels'}, {'category': 'Gorgeous Cotton Keyboard'}, {'category': 'Intelligent Concrete Sausages'}, {'category': 'Fantastic Metal Fish'}, {'category': 'Gorgeous Wooden Pants'}, {'category': 'Rustic Frozen Table'}, {'category': 'Refined Cotton Cheese'}, {'category': 'Unbranded Metal Mouse'}, {'category': 'Handcrafted Wooden Shoes'}, {'category': 'Practical Concrete Chips'}, {'category': 'Unbranded Soft Bacon'}, {'category': 'Fantastic Plastic Chips'}, {'category': 'Tasty Fresh Bacon'}, {'category': 'Rustic Concrete Car'}, {'category': 'Fantastic Soft Mouse'}, {'category': 'Licensed Fresh Computer'}, {'category': 'Tasty Fresh Tuna'}, {'category': 'Awesome Soft Computer'}, {'category': 'Rustic Metal Gloves'}, {'category': 'Practical Steel Cheese'}, {'category': 'Practical Plastic Computer'}, {'category': 'Generic Wooden Towels'}, {'category': 'Refined Rubber Shoes'}, {'category': 'Handcrafted Concrete Ball'}, {'category': 'Sleek Granite Chair'}, {'category': 'Awesome Frozen Keyboard'}, {'category': 'Sleek Concrete Soap'}, {'category': 'Fantastic Fresh Computer'}, {'category': 'Sleek Concrete Sausages'}, {'category': 'Handcrafted Steel Salad'}, {'category': 'Tasty Fresh Car'}, {'category': 'Unbranded Metal Soap'}, {'category': 'Handcrafted Cotton Cheese'}, {'category': 'Rustic Frozen Gloves'}, {'category': 'Licensed Granite Bike'}, {'category': 'Incredible Wooden Salad'}, {'category': 'Fantastic Rubber Salad'}, {'category': 'Licensed Frozen Chicken'}, {'category': 'Handmade Metal Gloves'}, {'category': 'Licensed Frozen Bike'}, {'category': 'Fantastic Rubber Keyboard'}, {'category': 'Ergonomic Steel Sausages'}, {'category': 'Licensed Fresh Salad'}, {'category': 'Intelligent Granite Mouse'}, {'category': 'Rustic Concrete Bacon'}, {'category': 'Fantastic Steel Pizza'}, {'category': 'Rustic Cotton Bike'}, {'category': 'Generic Steel Table'}, {'category': 'Ergonomic Metal Sausages'}, {'category': 'Handmade Soft Shirt'}, {'category': 'Tasty Concrete Chips'}, {'category': 'Handmade Soft Gloves'}, {'category': 'Ergonomic Soft Fish'}, {'category': 'Practical Cotton Computer'}, {'category': 'Intelligent Cotton Chips'}, {'category': 'Awesome Cotton Bacon'}, {'category': 'Handmade Cotton Keyboard'}, {'category': 'Generic Fresh Computer'}, {'category': 'Handcrafted Metal Computer'}, {'category': 'Gorgeous Granite Shirt'}, {'category': 'Refined Soft Computer'}, {'category': 'Fantastic Plastic Towels'}, {'category': 'Tasty Steel Chicken'}, {'category': 'Refined Fresh Chicken'}, {'category': 'Ergonomic Granite Ball'}, {'category': 'Sleek Concrete Shoes'}, {'category': 'Ergonomic Steel Table'}, {'category': 'Tasty Metal Bacon'}, {'category': 'Gorgeous Steel Pants'}, {'category': 'Generic Rubber Computer'}, {'category': 'Incredible Rubber Pants'}, {'category': 'Fantastic Plastic Bike'}, {'category': 'Small Concrete Bike'}, {'category': 'Sleek Fresh Ball'}, {'category': 'Gorgeous Frozen Cheese'}, {'category': 'Awesome Soft Shirt'}, {'category': 'Generic Granite Ball'}, {'category': 'Practical Metal Hat'}, {'category': 'Awesome Wooden Fish'}, {'category': 'Intelligent Cotton Pants'}, {'category': 'Incredible Concrete Sausages'}, {'category': 'Small Concrete Soap'}, {'category': 'Awesome Wooden Chicken'}, {'category': 'Practical Fresh Mouse'}, {'category': 'Rustic Wooden Chair'}, {'category': 'Sleek Concrete Car'}, {'category': 'Incredible Soft Gloves'}, {'category': 'Handmade Fresh Keyboard'}, {'category': 'Generic Cotton Ball'}, {'category': 'Tasty Frozen Salad'}, {'category': 'Gorgeous Fresh Gloves'}, {'category': 'Awesome Steel Mouse'}, {'category': 'Practical Concrete Pants'}, {'category': 'Licensed Steel Shoes'}, {'category': 'Ergonomic Metal Mouse'}, {'category': 'Ergonomic Frozen Tuna'}, {'category': 'Refined Cotton Salad'}, {'category': 'Refined Concrete Car'}, {'category': 'Generic Wooden Hat'}, {'category': 'Unbranded Cotton Salad'}, {'category': 'Gorgeous Frozen Salad'}, {'category': 'Rustic Granite Computer'}, {'category': 'Sleek Rubber Pizza'}, {'category': 'Intelligent Fresh Cheese'}, {'category': 'Gorgeous Soft Towels'}, {'category': 'Unbranded Steel Hat'}, {'category': 'Awesome Metal Computer'}, {'category': 'Handmade Rubber Keyboard'}, {'category': 'Handcrafted Plastic Keyboard'}, {'category': 'Fantastic Soft Gloves'}, {'category': 'Intelligent Wooden Bacon'}, {'category': 'Tasty Steel Cheese'}, {'category': 'Awesome Soft Pizza'}, {'category': 'Handcrafted Rubber Table'}, {'category': 'Small Wooden Fish'}, {'category': 'Gorgeous Granite Soap'}, {'category': 'Ergonomic Granite Chips'}, {'category': 'Handmade Fresh Mouse'}, {'category': 'Rustic Soft Hat'}, {'category': 'Awesome Granite Salad'}, {'category': 'Fantastic Plastic Shoes'}, {'category': 'Generic Fresh Cheese'}, {'category': 'Handcrafted Frozen Chair'}, {'category': 'Handcrafted Cotton Bacon'}, {'category': 'Handmade Wooden Mouse'}, {'category': 'Practical Rubber Bike'}, {'category': 'Unbranded Frozen Chips'}, {'category': 'Gorgeous Rubber Tuna'}, {'category': 'Gorgeous Soft Shoes'}, {'category': 'Practical Cotton Cheese'}, {'category': 'Unbranded Metal Gloves'}, {'category': 'Handmade Granite Bike'}, {'category': 'Practical Cotton Sausages'}, {'category': 'Fantastic Granite Chips'}, {'category': 'Unbranded Cotton Hat'}, {'category': 'Fantastic Soft Shirt'}, {'category': 'Intelligent Granite Gloves'}, {'category': 'Awesome Concrete Mouse'}, {'category': 'Fantastic Plastic Chair'}, {'category': 'Gorgeous Frozen Car'}, {'category': 'Intelligent Soft Cheese'}, {'category': 'Small Granite Soap'}, {'category': 'Practical Fresh Hat'}, {'category': 'Refined Concrete Cheese'}, {'category': 'Handmade Concrete Pants'}, {'category': 'Ergonomic Soft Car'}, {'category': 'Licensed Plastic Towels'}, {'category': 'Generic Rubber Towels'}, {'category': 'Generic Fresh Soap'}, {'category': 'bueno'}, {'category': 'Generic Soft Towels'}, {'category': 'Practical Rubber Pizza'}, {'category': 'Gorgeous Metal Ball'}, {'category': 'Fantastic Granite Chair'}, {'category': 'A32'}, {'category': 'sony'}, {'category': 'Fruits'}, {'category': 'Vegetables'}, {'category': 'Rustic Granite Fish'}, {'category': 'Gorgeous Metal Computer'}, {'category': 'Refined Fresh Pizza'}, {'category': 'Audio y Video'}, {'category': 'tables'}, {'category': 'Devices'}, {'category': 'Intelligent Frozen Keyboard'}, {'category': 'Loja'}, {'category': 'mandarina'}, {'category': 'computacion'}, {'category': 'Ergonomic Steel Tuna'}, {'category': 'Cuadricoptero'}, {'category': 'Electronic'}, {'category': 'Cereales'}, {'category': 'Leches'}, {'category': 'movile'}, {'category': 'Fantastic Fresh Tuna'}, {'category': 'micelaneos'}, {'category': 'Generic Metal Salad'}, {'category': 'Sonido'}, {'category': 'Dulce'}, {'category': '---'}, {'category': 'Sleek Granite Chicken'}, {'category': 'Handmade Steel Table'}, {'category': 'Intelligent Concrete Tuna'}, {'category': 'Smartv'}, {'category': 'Refined Steel Car'}, {'category': 'sextoys'}, {'category': 'Antejos'}, {'category': 'videogame'}, {'category': 'CATEGOR'}, {'category': 'Small Plastic Tuna'}, {'category': 'lor'}, {'category': 'articulo de oficina'}, {'category': 'Bebestibles'}, {'category': 'ejemplo'}, {'category': 'Tegnologia'}, {'category': 'analista'}, {'category': 'oficina'}, {'category': 'uno'}, {'category': 'poddle'}, {'category': 'weed'}, {'category': 'Incredible Metal Pizza'}, {'category': 'Ergonomic Granite Chicken'}, {'category': 'animals'}, {'category': 'Ergonomic Soft Computer'}, {'category': 'LAPTOPPS'}, {'category': 'tv smart'}, {'category': 'Handmade Metal Shirt'}, {'category': 'cumputers'}, {'category': 'Awesome Granite Table'}, {'category': 'Fantastic Frozen Shoes'}, {'category': 'Lacteos'}, {'category': 'deporte'}, {'category': 'Juegos de mesa'}, {'category': 'electronico'}, {'category': 'QA'}, {'category': 'Billou'}, {'category': 'Licensed Granite Fish'}, {'category': 'Licensed Frozen Hat'}, {'category': 'Coleccionables'}, {'category': 'Entretenimiento'}, {'category': 'Licor'}, {'category': 'Licensed Steel Car'}, {'category': 'Refined Cotton Shirt'}, {'category': 'Telefonos        '}, {'category': 'Incredible Rubber Tuna'}, {'category': 'Small Plastic Pants'}, {'category': 'Practical Soft Computer'}, {'category': 'Tecnologie2'}, {'category': 'clasico'}, {'category': 'clasico2'}, {'category': 'Practical Metal Computer'}, {'category': 'phones'}, {'category': 'Niños'}, {'category': 'Ergonomic Frozen Computer'}, {'category': 'dcrc'}, {'category': 'Small Granite Pizza'}, {'category': 'Licensed Frozen Ball'}, {'category': 'Common'}, {'category': 'Intelligent Fresh Car'}, {'category': 'Intelligent Plastic Car'}, {'category': 'Appliances1'}, {'category': 'Citrico'}, {'category': 'plasma'}, {'category': 'Intelligent Fresh Gloves'}, {'category': 'Enlatados'}, {'category': 'Granos y. Semillas'}, {'category': 'Small Steel Sausages'}, {'category': 'spaceman'}, {'category': 'Intelligent Granite Cheese'}, {'category': 'Gorgeous Rubber Keyboard'}, {'category': 'toyss'}, {'category': 'Study'}, {'category': 'Rustic Steel Computer'}, {'category': 'Mobile'}, {'category': 'qlq'}, {'category': 'telefonos'}, {'category': 'TV`s 50'}, {'category': 'TV`s smart'}, {'category': 'Tasty Frozen Computer'}, {'category': 'eletronic'}, {'category': 'fugiat esse tempor exercitation ea'}, {'category': 'caniche toy'}, {'category': 'Maricos'}, {'category': ' Appliances'}, {'category': 'b'}, {'category': 'pet'}, {'category': 'Awesome Steel Chicken'}, {'category': 'Licensed Frozen Car'}, {'category': 'School'}, {'category': '1'}, {'category': 'acete'}, {'category': 'Auto'}, {'category': 'Incredible Frozen Gloves'}, {'category': 'Gorgeous Fresh Chips'}, {'category': 'biuro'}, {'category': 'utiles'}, {'category': 'Small Concrete Shirt'}, {'category': 'dog'}, {'category': 'Tecnologica'}, {'category': 'Sleek Granite Gloves'}, {'category': 'Lentes de sol'}, {'category': 'industria'}, {'category': 'comercio'}, {'category': 'Aviation'}, {'category': 'ladron'}, {'category': 'Handcrafted Rubber Towels'}, {'category': '{{categoria}}'}, {'category': 'Awesome Cotton Sausages'}, {'category': 'Men'}, {'category': 'Applieances'}, {'category': 'Unbranded Metal Towels'}, {'category': 'TestCat'}, {'category': 'Domain'}, {'category': 'Appliamces'}, {'category': 'Cuidados Corporales'}, {'category': 'Generic Wooden Salad'}, {'category': 'fasdf'}, {'category': '{{$$randomDepartment}}'}, {'category': 'Ergonomic Steel Hat'}, {'category': 'Refined Steel Mouse'}, {'category': 'Intelligent Concrete Hat'}, {'category': 'Frutas'}, {'category': 'Persona'}, {'category': 'Salad'}, {'category': 'Car'}, {'category': 'Shitt'}, {'category': 'Handmade Concrete Ball'}, {'category': 'Cheese'}, {'category': 'Chicken'}, {'category': 'Pants'}, {'category': 'Bacon'}, {'category': 'Table'}, {'category': 'Handcrafted Soft Chicken'}, {'category': 'Fish'}, {'category': 'Chair'}, {'category': 'Gloves'}, {'category': 'Electrodomestics'}, {'category': 'carros'}, {'category': 'Rustic Frozen Towels'}, {'category': 'Generic Frozen Soap'}, {'category': 'forniture'}, {'category': 'Refined Metal Keyboard'}, {'category': 'electricidad comercial e industrial'}, {'category': 'electricidad'}, {'category': 'Handcrafted Concrete Computer'}, {'category': 'Verdura'}, {'category': 'camiseta'}, {'category': 'Intelligent Concrete Gloves'}, {'category': 'criptomonedas'}, {'category': 'Handcrafted Rubber Shoes'}, {'category': 'Supplement'}, {'category': 'Comunicacion'}, {'category': 'CPantallas'}, {'category': 'ELECTRODIMESTICO'}, {'category': 'Handcrafted Metal Car'}, {'category': 'Lentes de sol chetos'}, {'category': 'Handcrafted Fresh Car'}, {'category': 'abc-123'}, {'category': 'Unbranded Wooden Cheese'}, {'category': '32 pulgadas'}, {'category': 'Intelligent Wooden Pants'}, {'category': 'Intelligent Steel Gloves'}, {'category': 'Herramientas'}, {'category': 'Lentes espejados'}, {'category': 'Awesome Granite Gloves'}, {'category': 'Small Rubber Computer'}, {'category': 'Tablet'}, {'category': 'Gorgeous Rubber Shirt'}, {'category': 'Family'}, {'category': 'Licensed Frozen Chips'}, {'category': 'palos'}, {'category': 'Sleek Metal Shoes'}, {'category': 'Sleek Frozen Car'}, {'category': 'Domestico'}, {'category': 'gamer'}, {'category': '2023'}, {'category': 'laptops gaming'}, {'category': 'Succionador de pepita'}, {'category': 'Felicidad empaquetada'}, {'category': 'Small Granite Sausages'}, {'category': 'mascotas'}, {'category': 'fast-food'}, {'category': 'Humano'}, {'category': 'Television'}, {'category': 'Sleek Frozen Pants'}, {'category': 'Personal computer'}, {'category': 'Muebles'}, {'category': 'Awesome Granite Chair'}, {'category': 'abarrotes'}, {'category': 'Awesome Steel Computer'}, {'category': 'PSE'}, {'category': 'planos'}, {'category': 'Tasty Granite Ball'}, {'category': '&lt;string&gt;'}, {'category': 'Awesome Rubber Chips'}, {'category': 'Practical Concrete Towels'}, {'category': 'Licensed Granite Chips'}, {'category': 'Coca Cola'}, {'category': 'Refrescos de sabor'}, {'category': 'Refrescos'}, {'category': 'Rustic Steel Chicken'}, {'category': 'product'}, {'category': 'Handcrafted Cotton Mouse'}, {'category': 'Rustic Cotton Sausages'}, {'category': 'zaka'}, {'category': 'sdfsdf'}, {'category': 'Awesome Fresh Tuna'}]}</msg>
+<status status="PASS" starttime="20230226 20:42:08.553" endtime="20230226 20:42:08.555"/>
+</kw>
+<kw name="Dictionary Should Not Contain Key" library="Collections">
+<arg>${get_all_categories}</arg>
+<arg>geleia da shakira</arg>
+<doc>Fails if ``key`` is found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:08.556" endtime="20230226 20:42:08.556"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:08.553" endtime="20230226 20:42:08.556"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:07.495" endtime="20230226 20:42:08.556"/>
+</test>
+<test id="s1-t8" name="Cenário 08: Validar produtos na categoria suplementos" line="36">
+<kw name="Efetuar busca por produtos na categoria suplementos utilizando o limite 2" library="api_testing">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${get_productsInCategory}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/category/supplements/products?skip=0&amp;limit=2</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:09.220" level="INFO">GET Request : url=https://my-store2.p.rapidapi.com/catalog/category/supplements/products?skip=0&amp;limit=2 
+ path_url=/catalog/category/supplements/products?skip=0&amp;limit=2 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:09.220" level="INFO">GET Response : url=https://my-store2.p.rapidapi.com/catalog/category/supplements/products?skip=0&amp;limit=2 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '153', 'Connection': 'keep-alive', 'Etag': 'W/"99-Frz0TUztTaBgmMLqpP4GJA8bbrI"', 'x-amzn-Remapped-Content-Length': '153', 'x-amzn-RequestId': '44d2adc8-61ee-427c-80df-a6bb93d11ab4', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'vcUvs_b7C7ziJvxgwPdCCoNzqFa4DVIYcmwQQuQwJJEzl26yYCBbBA==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:12 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-ItQE0XoAMFejw=', 'X-Amzn-Trace-Id': 'Root=1-63fbee54-087afa1b63c015a162f29f11;Sampled=0', 'Via': '1.1 13aa012ee8b0fd01108e49524035bb0c.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"products":[{"id":23647,"name":"vitamin c","category":"supplements"},{"id":23654,"name":"vitamin c","category":"supplements"}],"summary":{"count":1988}} 
+ </msg>
+<msg timestamp="20230226 20:42:09.220" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:09.220" level="INFO">${get_productsInCategory} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:08.557" endtime="20230226 20:42:09.220"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${get_all_productIncategory}</arg>
+<arg>${get_productsInCategory.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:09.223" level="INFO">${get_all_productIncategory} = {'products': [{'id': 23647, 'name': 'vitamin c', 'category': 'supplements'}, {'id': 23654, 'name': 'vitamin c', 'category': 'supplements'}], 'summary': {'count': 1988}}</msg>
+<status status="PASS" starttime="20230226 20:42:09.220" endtime="20230226 20:42:09.223"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:08.557" endtime="20230226 20:42:09.223"/>
+</kw>
+<kw name="Validar itens da lista" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${get_all_productIncategory}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:09.225" level="INFO">{'products': [{'id': 23647, 'name': 'vitamin c', 'category': 'supplements'}, {'id': 23654, 'name': 'vitamin c', 'category': 'supplements'}], 'summary': {'count': 1988}}</msg>
+<status status="PASS" starttime="20230226 20:42:09.224" endtime="20230226 20:42:09.225"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${get_all_productIncategory['products'][0]}</arg>
+<arg>id</arg>
+<arg>23647</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:09.225" endtime="20230226 20:42:09.225"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${get_all_productIncategory['products'][1]}</arg>
+<arg>id</arg>
+<arg>23654</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:09.225" endtime="20230226 20:42:09.225"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.224" endtime="20230226 20:42:09.225"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:08.556" endtime="20230226 20:42:09.225"/>
+</test>
+<test id="s1-t9" name="Cenário 09: Deletar produto da MyStore" line="40">
+<kw name="Cadastrar novo produto" library="api_testing">
+<arg>status_code_desejado=201</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>name=Vitamina D</arg>
+<arg>price=10</arg>
+<arg>manufacturer=Teste</arg>
+<arg>category=supplements</arg>
+<arg>description=Teste Produto</arg>
+<arg>tags=Teste tag</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:09.228" level="INFO">${body} = {'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.227" endtime="20230226 20:42:09.228"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:09.228" level="INFO">{'name': 'Vitamina D', 'price': '10', 'manufacturer': 'Teste', 'category': 'supplements', 'description': 'Teste Produto', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.228" endtime="20230226 20:42:09.228"/>
+</kw>
+<kw name="Criar Sessão na MyStore" library="api_testing">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>content-type=application/json</arg>
+<arg>X-RapidAPI-Key=3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426</arg>
+<arg>X-RapidAPI-Host=my-store2.p.rapidapi.com</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230226 20:42:09.228" level="INFO">${headers} = {'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.228" endtime="20230226 20:42:09.228"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=MyStore</arg>
+<arg>url=https://my-store2.p.rapidapi.com/catalog</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230226 20:42:09.228" level="INFO">Creating Session using : alias=MyStore, url=https://my-store2.p.rapidapi.com/catalog, headers={'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230226 20:42:09.228" endtime="20230226 20:42:09.228"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.228" endtime="20230226 20:42:09.228"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${status_code_desejado}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:09.560" level="INFO">POST Request : url=https://my-store2.p.rapidapi.com/catalog/product 
+ path_url=/catalog/product 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '142'} 
+ body=b'{"name": "Vitamina D", "price": "10", "manufacturer": "Teste", "category": "supplements", "description": "Teste Produto", "tags": "Teste tag"}' 
+ </msg>
+<msg timestamp="20230226 20:42:09.560" level="INFO">POST Response : url=https://my-store2.p.rapidapi.com/catalog/product 
+ status=201, reason=Created 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '196', 'Connection': 'keep-alive', 'Etag': 'W/"c4-pEqSEP39AN2E+QFHBRAWZ7C6LfY"', 'x-amzn-Remapped-Content-Length': '196', 'x-amzn-RequestId': '587f9068-3dd8-4dd2-b571-a6d44460f84b', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'jB0XpQe0CWF5uNQuQ_EjDzUGHo3_6DUXKff3B4wKhS9oqX1RBHpoiA==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-ItYFskoAMFkiQ=', 'X-Amzn-Trace-Id': 'Root=1-63fbee55-40d7c29b45b472782c62be83;Sampled=0', 'Via': '1.1 13aa012ee8b0fd01108e49524035bb0c.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":855964,"name":"Vitamina D","description":"Teste Produto","manufacturer":"Teste","category":"supplements","price":10,"created":"2023-02-26T23:42:13.000Z","status":"active","tags":"Teste tag"} 
+ </msg>
+<msg timestamp="20230226 20:42:09.560" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:09.560" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:09.228" endtime="20230226 20:42:09.560"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:09.564" level="INFO">{'id': 855964, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:13.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.560" endtime="20230226 20:42:09.564"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${ID_PRODUTO}</arg>
+<arg>${resposta.json()["id"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:09.566" level="INFO">${ID_PRODUTO} = 855964</msg>
+<status status="PASS" starttime="20230226 20:42:09.564" endtime="20230226 20:42:09.566"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:09.567" level="INFO">${RESPOSTA} = {'id': 855964, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:13.000Z', 'status': 'active', 'tags':...</msg>
+<status status="PASS" starttime="20230226 20:42:09.566" endtime="20230226 20:42:09.567"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.227" endtime="20230226 20:42:09.567"/>
+</kw>
+<kw name="Conferir se o novo produto foi cadastrado com sucesso" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:09.569" level="INFO">{'id': 855964, 'name': 'Vitamina D', 'description': 'Teste Produto', 'manufacturer': 'Teste', 'category': 'supplements', 'price': 10, 'created': '2023-02-26T23:42:13.000Z', 'status': 'active', 'tags': 'Teste tag'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.569" endtime="20230226 20:42:09.569"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${RESPOSTA}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:09.569" endtime="20230226 20:42:09.569"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.569" endtime="20230226 20:42:09.570"/>
+</kw>
+<kw name="Deletar produto" library="api_testing">
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${delete_product}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product/${ID_PRODUTO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:09.986" level="INFO">DELETE Request : url=https://my-store2.p.rapidapi.com/catalog/product/855964 
+ path_url=/catalog/product/855964 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:09.986" level="INFO">DELETE Response : url=https://my-store2.p.rapidapi.com/catalog/product/855964 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '34', 'Connection': 'keep-alive', 'Etag': 'W/"22-9kt7bSz6KC7iy5hfKgZC4ZBuVdo"', 'x-amzn-Remapped-Content-Length': '34', 'x-amzn-RequestId': '52a84d78-39f9-44ac-b0dd-37dd3a4ece69', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'eTyBxaMkHnllcVpBZulfR3qF9GzKgswvX0VO7PFJiA03hmMdtUHVww==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'X-Amz-Cf-Pop': 'GRU50-C1', 'X-Cache': 'Miss from cloudfront', 'x-amz-apigw-id': 'A-ItcHPjIAMFtJw=', 'X-Amzn-Trace-Id': 'Root=1-63fbee55-43ec96da5ff7cd231264da2e;Sampled=0', 'Via': '1.1 ac6d83e68fe20e1748535144bdfba004.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"id":"855964","status":"deleted"} 
+ </msg>
+<msg timestamp="20230226 20:42:09.986" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:09.986" level="INFO">${delete_product} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:09.570" endtime="20230226 20:42:09.986"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${delete_prod}</arg>
+<arg>${delete_product.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:09.996" level="INFO">${delete_prod} = {'id': '855964', 'status': 'deleted'}</msg>
+<status status="PASS" starttime="20230226 20:42:09.986" endtime="20230226 20:42:09.996"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.570" endtime="20230226 20:42:09.996"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.227" endtime="20230226 20:42:09.997"/>
+</test>
+<test id="s1-t10" name="Cenário 10: Deletar produto inexistente da MyStore" line="45">
+<kw name="Deletar produto com ID invalido" library="api_testing">
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${resposta_invalida}</var>
+<arg>alias=MyStore</arg>
+<arg>url=/product/0000</arg>
+<arg>expected_status=404</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20230226 20:42:10.188" level="INFO">DELETE Request : url=https://my-store2.p.rapidapi.com/catalog/product/0000 
+ path_url=/catalog/product/0000 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-type': 'application/json', 'X-RapidAPI-Key': '3cc96f25d4msha7c28e70327f5a1p130d61jsnaef09068a426', 'X-RapidAPI-Host': 'my-store2.p.rapidapi.com', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20230226 20:42:10.188" level="INFO">DELETE Response : url=https://my-store2.p.rapidapi.com/catalog/product/0000 
+ status=404, reason=Not Found 
+ headers={'Date': 'Sun, 26 Feb 2023 23:42:14 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '66', 'Connection': 'keep-alive', 'Etag': 'W/"42-bxIcDAF652KyhDoAIbljtpLm+0Y"', 'x-amzn-Remapped-Content-Length': '66', 'x-amzn-RequestId': 'd3e00ad4-3ffd-4c01-878e-61b07aee71a3', 'X-Powered-By': 'Express', 'X-Amz-Cf-Id': 'jwolUYCzVpEA2MbRxufqeOFgPCxD1nGre9KYo_s0WDfkL3xyogFtAA==', 'x-amzn-Remapped-Date': 'Sun, 26 Feb 2023 23:42:13 GMT', 'X-Amz-Cf-Pop': 'GRU3-C2', 'X-Cache': 'Error from cloudfront', 'x-amz-apigw-id': 'A-IteFLKoAMFbzA=', 'X-Amzn-Trace-Id': 'Root=1-63fbee55-7dfbde8624615ccd6cb59151;Sampled=0', 'Via': '1.1 2e5f15b69d5f9af75749c48642a17b50.cloudfront.net (CloudFront)', 'Vary': 'Accept-Encoding', 'Server': 'RapidAPI-1.2.8', 'X-RapidAPI-Version': '1.2.8', 'X-RapidAPI-Region': 'AWS - sa-east-1'} 
+ body={"statusCode":404,"message":"Product with ID 0000 does not exist"} 
+ </msg>
+<msg timestamp="20230226 20:42:10.188" level="INFO">C:\Users\msdvo\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'my-store2.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230226 20:42:10.188" level="INFO">${resposta_invalida} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20230226 20:42:09.999" endtime="20230226 20:42:10.188"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESP_INVALIDA}</arg>
+<arg>${resposta_invalida.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230226 20:42:10.201" level="INFO">${RESP_INVALIDA} = {'statusCode': 404, 'message': 'Product with ID 0000 does not exist'}</msg>
+<status status="PASS" starttime="20230226 20:42:10.188" endtime="20230226 20:42:10.201"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.999" endtime="20230226 20:42:10.202"/>
+</kw>
+<kw name="Validar mensagem informando ID invalido" library="api_testing">
+<kw name="Log" library="BuiltIn">
+<arg>${RESP_INVALIDA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230226 20:42:10.202" level="INFO">{'statusCode': 404, 'message': 'Product with ID 0000 does not exist'}</msg>
+<status status="PASS" starttime="20230226 20:42:10.202" endtime="20230226 20:42:10.202"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESP_INVALIDA}</arg>
+<arg>message</arg>
+<arg>Product with ID 0000 does not exist</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230226 20:42:10.202" endtime="20230226 20:42:10.203"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:10.202" endtime="20230226 20:42:10.203"/>
+</kw>
+<status status="PASS" starttime="20230226 20:42:09.998" endtime="20230226 20:42:10.203"/>
+</test>
+<status status="FAIL" starttime="20230226 20:42:03.757" endtime="20230226 20:42:10.204"/>
+</suite>
+<statistics>
+<total>
+<stat pass="9" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="9" fail="1" skip="0" id="s1" name="Api Testing">Api Testing</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
